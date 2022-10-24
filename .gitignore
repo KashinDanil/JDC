@@ -1,96 +1,95 @@
 # Prerequisites
-*.d
+src/HPAS-master/*.d
 
 # Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+src/HPAS-master/*.slo
+src/HPAS-master/*.lo
+src/HPAS-master/*.o
+src/HPAS-master/*.obj
 
 # Precompiled Headers
-*.gch
-*.pch
+src/HPAS-master/*.gch
+src/HPAS-master/*.pch
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+src/HPAS-master/*.so
+src/HPAS-master/*.dylib
+src/HPAS-master/*.dll
 
 # Fortran module files
-*.mod
-*.smod
+src/HPAS-master/*.mod
+src/HPAS-master/*.smod
 
 # Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+src/HPAS-master/*.lai
+src/HPAS-master/*.la
+src/HPAS-master/*.a
+src/HPAS-master/*.lib
 
 # Executables
-*.exe
-*.out
-*.app
+src/HPAS-master/*.exe
+src/HPAS-master/*.app
 
 # http://www.gnu.org/software/automake
 
-Makefile.in
-/ar-lib
-/mdate-sh
-/py-compile
-/test-driver
-/ylwrap
+src/HPAS-master/Makefile.in
+src/HPAS-master/ar-lib
+src/HPAS-master/mdate-sh
+src/HPAS-master/py-compile
+src/HPAS-master/test-driver
+src/HPAS-master/ylwrap
 
 # http://www.gnu.org/software/autoconf
 
-autom4te.cache
-/autoscan.log
-/autoscan-*.log
-/aclocal.m4
-/compile
-/config.guess
-/config.h.in
-/config.log
-/config.status
-/config.sub
-/configure
-/configure.scan
-/depcomp
-/install-sh
-/missing
-/stamp-h1
+src/HPAS-masterautom4te.cache
+src/HPAS-master/autoscan.log
+src/HPAS-master/autoscan-*.log
+src/HPAS-master/aclocal.m4
+src/HPAS-master/compile
+src/HPAS-master/config.guess
+src/HPAS-master/config.h.in
+src/HPAS-master/config.log
+src/HPAS-master/config.status
+src/HPAS-master/config.sub
+src/HPAS-master/configure
+src/HPAS-master/configure.scan
+src/HPAS-master/depcomp
+src/HPAS-master/install-sh
+src/HPAS-master/missing
+src/HPAS-master/stamp-h1
 
 # https://www.gnu.org/software/libtool/
 
-/ltmain.sh
+src/HPAS-master/ltmain.sh
 
 # http://www.gnu.org/software/texinfo
 
-/texinfo.tex
+src/HPAS-master/texinfo.tex
 
 # http://www.gnu.org/software/m4/
 
-m4/libtool.m4
-m4/ltoptions.m4
-m4/ltsugar.m4
-m4/ltversion.m4
-m4/lt~obsolete.m4
+src/HPAS-master/m4/libtool.m4
+src/HPAS-master/m4/ltoptions.m4
+src/HPAS-master/m4/ltsugar.m4
+src/HPAS-master/m4/ltversion.m4
+src/HPAS-master/m4/lt~obsolete.m4
 
 # Manually added
-build-aux/
-.deps/
-.dirstamp
-*~
-Makefile
-hpas
-hpas-*.tar.gz
-config.h
-bin
+src/HPAS-master/build-aux/
+src/HPAS-master/.deps/
+src/HPAS-master/.dirstamp
+src/HPAS-master/*~
+src/HPAS-master/Makefile
+src/HPAS-master/hpas
+src/HPAS-master/hpas-*.tar.gz
+src/HPAS-master/config.h
+src/HPAS-master/bin
 .idea/
 
 #Output files
-*.out
-CoMD*.yaml
-results.yaml
-clover.in.tmp
-*.log
-__pycache__/
+src/HPAS-master/*.out
+src/HPAS-master/CoMD*.yaml
+src/HPAS-master/results.yaml
+src/HPAS-master/clover.in.tmp
+src/HPAS-master/*.log
+src/HPAS-master/__pycache__/
