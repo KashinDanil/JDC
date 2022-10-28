@@ -12,13 +12,13 @@ cpuload() {
 
   local options=${@##*( )}
   if [[ ! "$options" == *"-u"* ]]; then
-    #use 100% of cpu on one node
+    #use 100% of cpu on one node as default cpu load
     options=$options" -u 100"
   fi
   if [[ ! "$options" == *"-d"* ]]; then
-    #5 minutes to run
+    #5 minutes to run as default time
     options=$options" -d 300"
   fi
-  command="$SCRIPT_DIR/src/HPAS-master/bin/hpas cpuoccupy $options"
+  command="$SCRIPT_DIR/src/HPAS/bin/hpas cpuoccupy $options"
   cpuloadCall $command
 }

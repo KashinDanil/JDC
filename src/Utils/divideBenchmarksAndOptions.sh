@@ -1,5 +1,10 @@
 #!/bin/bash
 
+: '
+Function that divides arguments to benchmark names and options to these benchmarks
+Returns given glued benchmarks by comma then space and all options
+It gives a user an opportunity to use benchmark names and options in any order
+'
 divideBenchmarksAndOptions() {
   options=()
   optionsCounter=0
@@ -7,7 +12,7 @@ divideBenchmarksAndOptions() {
   benchmarksCounter=1
   while [ -n "$1" ]
   do
-    if [ $1 = "-h" ] || [ $1 = "--help" ]; then
+    if [ $1 = "-jdch" ] || [ $1 = "--JDCHelp" ]; then
       echo "help"
       return
     fi
