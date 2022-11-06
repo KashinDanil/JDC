@@ -18,6 +18,9 @@ availableBenchmarks=$(getAvailableBenchmarks)
 parameters=()
 benchmarks=()
 benchmarksCounter=0
+#common parameters used in all benchmarks (-d for duration)
+commonParamKeys=("-d")
+commonParams=''
 while [ -n "$1" ]
 do
   param=$1
@@ -27,9 +30,17 @@ do
     exit 0
   fi
 
+#check if common parameters are used
+  if [[ " ${commonParamKeys[*]} " =~ " $1 " ]]; then
+      commonParams=$commonParams" $1 $2"
+      shift 2
+      continue
+  fi
+
   benchmark=${param%%=*}
 
   if [[ ! " $availableBenchmarks " == *" $benchmark "* ]]; then
+    #skipping benchmarks which are not in the list
     echo -e "There is no \033[32m'$benchmark'\033[0m benchmark"
     shift
     continue
@@ -46,6 +57,8 @@ do
   shift
 done
 
+commonParams=${commonParams[$i]##*( )}
+
 #if there is no benchmarks chosen, use them all
 if [ "${#benchmarks[@]}" -eq "0" ]; then
   echo "Use all benchmarks: $availableBenchmarks"
@@ -55,6 +68,6 @@ fi
 
 #run chosen benchmarks using all parameters
 for (( i=0; i < $benchmarksCounter; i++ )) do
-  echo -e "Run benchmark: \033[32m"${benchmarks[$i]}"\033[0m" ${parameters[$i]##*( )}
-  ${benchmarks[$i]} ${parameters[$i]}
+  echo -e "Run benchmark: \033[32m"${benchmarks[$i]}"\033[0m" ${parameters[$i]##*( )} $commonParams
+  ${benchmarks[$i]} ${parameters[$i]} $commonParams
 done
