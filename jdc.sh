@@ -12,26 +12,49 @@ for script in $SCRIPT_DIR/src/*.sh; do
   . "$script"
 done
 
-#divide arguments by benchmark names and options
-read benchmarks options <<<$(divideBenchmarksAndOptions $@)
-benchmarks=${benchmarks/"deleteMe,"/""}
-benchmarks=${benchmarks/"deleteMe"/""}
-if [ "$benchmarks" == "help" ]; then
-  #had to use this crutch, cos command exit works in file not in process. Have no idea why it's so
-  help
-  exit
-fi
-IFS=',' read -r -a benchmarks <<< "$benchmarks"
+availableBenchmarks=$(getAvailableBenchmarks)
 
-#if there is no benchmark chosen, use them all
+#divide arguments by benchmark names and options
+parameters=()
+benchmarks=()
+benchmarksCounter=0
+while [ -n "$1" ]
+do
+  param=$1
+
+  if [[ $param = "-h" ]] || [[ $param = "--help" ]]; then
+    help
+    exit 0
+  fi
+
+  benchmark=${param%%=*}
+
+  if [[ ! " $availableBenchmarks " == *" $benchmark "* ]]; then
+    echo -e "There is no \033[32m'$benchmark'\033[0m benchmark"
+    shift
+    continue
+  fi
+
+  benchmarks[$benchmarksCounter]=$benchmark
+  parameters[$benchmarksCounter]=${param#*=}
+  if [[ ! "$param" == *"="* ]]; then
+    parameters[$benchmarksCounter]=''
+  fi
+
+  ((benchmarksCounter=benchmarksCounter+1))
+
+  shift
+done
+
+#if there is no benchmarks chosen, use them all
 if [ "${#benchmarks[@]}" -eq "0" ]; then
-  availableBenches=$(getAvailableBenchmarks)
-  echo "Use all benchmarks: $availableBenches"
-  IFS=' ' read -r -a benchmarks <<< $availableBenches
+  echo "Use all benchmarks: $availableBenchmarks"
+  IFS=' ' read -r -a benchmarks <<< $availableBenchmarks
+  benchmarksCounter=${#benchmarks[@]}
 fi
 
 #run chosen benchmarks using all parameters
-for key in "${!benchmarks[@]}"; do
-  echo "Run benchmark: "${benchmarks[$key]} $options
-  ${benchmarks[$key]} $options
+for (( i=0; i < $benchmarksCounter; i++ )) do
+  echo -e "Run benchmark: \033[32m"${benchmarks[$i]}"\033[0m" ${parameters[$i]##*( )}
+  ${benchmarks[$i]} ${parameters[$i]}
 done
