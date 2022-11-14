@@ -7,19 +7,21 @@ Installation
 ------------
 Configure [HPAS](https://github.com/peaclab/HPAS)
 
-chmod -R 777 src/HPAS
+    chmod -R 777 src/HPAS
+    cd src/HPAS
+    ./autogen.sh
+    ./configure --prefix=$PWD
+    make
+    make install
+    cd ../..
 
-cd src/HPAS
+Configure [osu](https://mvapich.cse.ohio-state.edu/benchmarks/)
 
-./autogen.sh
-
-./configure --prefix=$PWD
-
-make
-
-make install
-
-cd ../..
+    chmod -R 777 src/osu-micro-benchmarks
+    ./configure CC=mpicc CXX=mpicxx
+	make
+	make install
+    cd ../..
 
 
 Usage

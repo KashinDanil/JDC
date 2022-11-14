@@ -9,6 +9,8 @@ memfree() {
 #      echo $((NUMBER_OF_CORES_PER_NODE-1))" $@"
       $@
   }
+
+  #get all function options
   local options=${@##*( )}
   if [[ ! "$options" == *"-p"* ]] && [[ ! "$options" == *"-s"* ]] && [[ ! "$options" == *"-d"* ]]; then
     #run for 10 minutes with default period and certain memory

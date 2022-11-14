@@ -10,6 +10,7 @@ cpuload() {
       $@
   }
 
+  #get all function options
   local options=${@##*( )}
   if [[ ! "$options" == *"-u"* ]]; then
     #use 100% of cpu on one node as default cpu load
