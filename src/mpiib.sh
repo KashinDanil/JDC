@@ -9,7 +9,7 @@ mpiib() {
   fi
   if [[ ! "$options" == *"-i"* ]]; then
     #10 minutes to run as default time
-    options=$options" -i 2000000"
+    options=$options" -i 8000000"
   fi
   if [[ ! "$options" == *"-x"* ]]; then
     #10 minutes to run as default time
