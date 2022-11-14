@@ -18,7 +18,8 @@ Configure [HPAS](https://github.com/peaclab/HPAS)
 Configure [osu](https://mvapich.cse.ohio-state.edu/benchmarks/)
 
     chmod -R 777 src/osu-micro-benchmarks
-    ./configure CC=mpicc CXX=mpicxx
+    cd src/osu-micro-benchmarks
+    ./configure CC=oshcc CXX=oshcxx
 	make
 	make install
     cd ../..
