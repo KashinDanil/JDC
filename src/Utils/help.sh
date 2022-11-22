@@ -6,7 +6,7 @@ $SCRIPT_DIR/src/Utils/"getAvailableBenchmarks.sh"
 Returns help
 '
 help() {
-  echo "Input a valid benchmark name (and optional parameters to them):"
+  echo "Input a valid benchmark name (and optionally parameters to them):"
   local benchmarks=($(getAvailableBenchmarks))
   for benchmark in "${benchmarks[@]}"
   do
