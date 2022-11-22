@@ -1,6 +1,6 @@
 By default, configurations are set for supercomputer Lomonosov-2
 
-If you want to change it replace the values of corresponding variables in `config.sh`
+If you want to change it replace the values of the corresponding variables in `config.sh`
 
 
 Installation
@@ -27,6 +27,6 @@ Configure [osu](https://mvapich.cse.ohio-state.edu/benchmarks/)
 
 Usage
 ------------
-To run all benchmarks  use `jdc.sh`
+To run benchmarks use `jdc.sh` script or `sbatch-jdc.sh` to run benchmarks using sbatch.
 
 To get help use parameter `-h` or `--help`
