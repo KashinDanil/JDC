@@ -20,5 +20,5 @@ help() {
   done
   echo "Or input no benchmark names in that case all of them will be executed"
   echo "There are also additional parameters that are used for every selected benchmark:
-  '-d' execution time (by default  every benchmark has it's own execution time)"
+  '-d' duration time in seconds(by default  every benchmark has it's own duration time)"
 }
