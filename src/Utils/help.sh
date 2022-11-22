@@ -12,7 +12,7 @@ help() {
   do
     behavior=''
     if [[ $benchmark == *"mpi"* ]]; then
-      behavior='parallel'
+      behavior='parallel, requires an mpi run'
     else
       behavior='sequential'
     fi
