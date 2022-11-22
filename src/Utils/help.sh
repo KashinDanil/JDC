@@ -18,6 +18,7 @@ help() {
     fi
     echo -e "  \033[32m"${benchmark}"\033[0m[='parameters'] (${behavior})"
   done
+  echo "Or input no benchmark names in that case all of them will be executed"
   echo "There are also additional parameters that are used for every selected benchmark:
   '-d' execution time (by default  every benchmark has it's own execution time)"
 }
