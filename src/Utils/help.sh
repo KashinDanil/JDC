@@ -6,10 +6,18 @@ $SCRIPT_DIR/src/Utils/"getAvailableBenchmarks.sh"
 Returns help
 '
 help() {
-  echo "Input a valid benchmark name:"
-  local benchmarks=$(getAvailableBenchmarks)
-  echo -e "\033[32m"${benchmarks//" "/"\033[0m \033[32m"}"\033[0m"
-  echo "And optionally any parameters to them (if you know what you are doing) according to the template:
-  benchmark='{parameters}'"
-  exit 0
+  echo "Input a valid benchmark name (and optional parameters to them):"
+  local benchmarks=($(getAvailableBenchmarks))
+  for benchmark in "${benchmarks[@]}"
+  do
+    behavior=''
+    if [[ $benchmark == *"mpi"* ]]; then
+      behavior='parallel'
+    else
+      behavior='sequential'
+    fi
+    echo -e "  \033[32m"${benchmark}"\033[0m[='parameters'] (${behavior})"
+  done
+  echo "There are also additional parameters that are used for every selected benchmark:
+  '-d' execution time (by default  every benchmark has it's own execution time)"
 }

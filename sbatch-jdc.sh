@@ -4,6 +4,9 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 #import function to get available benchmarks
 . "$SCRIPT_DIR/src/Utils/getAvailableBenchmarks.sh"
+#import help
+. "$SCRIPT_DIR/src/Utils/help.sh"
+. "$SCRIPT_DIR/src/Utils/sbatchHelp.sh"
 
 availableBenchmarks=$(getAvailableBenchmarks)
 
@@ -14,13 +17,19 @@ sbatchMPIScript='ompi' #use run as default script for mpi benchmarks
 
 benchmarks=()
 
-commonParamKeys=("-d")
 commonParams=()
 while [ -n "$1" ]
 do
   param=$1
   key=${param%%=*}
   value=${param#*=}
+
+  if [[ $param = "-h" ]] || [[ $param = "--help" ]]; then
+    help
+    sbatchHelp
+    exit 0
+  fi
+
   if [[ $key = "--sbatch-params" ]]; then
     sbatchParameters=$value
     shift
@@ -42,11 +51,11 @@ do
     continue
   fi
 
-  #check if common parameters are used
-  if [[ " ${commonParamKeys[*]} " =~ " $1 " ]]; then
-      commonParams+=("$1 $2")
-      shift 2
-      continue
+  #add to every benchmark run all params that are not benchmarks
+  if [[ ! " $availableBenchmarks " == *" $key "* ]]; then
+    commonParams+=("$1")
+    shift
+    continue
   fi
 
   benchmarks+=("$key=$value")
