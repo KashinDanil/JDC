@@ -107,7 +107,7 @@ int netoccupy(int argc, char *argv[])
 
     // This section needs to be changed for correct node no. parsing
     gethostname(hostname, sizeof(hostname));
-    sscanf(hostname, "nid%d", hostnum);
+    sscanf(hostname, "n%d", hostnum);
     // end section
 
     shmem_barrier_all();
