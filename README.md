@@ -10,7 +10,7 @@ Configure [HPAS](https://github.com/peaclab/HPAS)
     chmod -R 777 src/HPAS
     cd src/HPAS
     ./autogen.sh
-    ./configure --prefix=$PWD
+    ./configure CC=oshcc --prefix=$PWD
     make
     make install
     cd ../..

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+: '
+Memory benchmark that uses RAM using memleak anomaly in HPAS
+'
 memfree() {
   memfreeCall() {
     for ((i = 0 ; i < 2 ; i++)); do

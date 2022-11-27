@@ -1,5 +1,8 @@
 #!/bin/bash
 
+: '
+CPU benchmark that loads cpu using cpuoccupy anomaly in HPAS
+'
 cpuload() {
   cpuloadCall() {
     for ((i = 0 ; i < NUMBER_OF_CORES_PER_NODE - 1 ; i++)); do

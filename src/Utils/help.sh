@@ -21,4 +21,8 @@ help() {
   echo "Or input no benchmark names in that case all of them will be executed"
   echo "There are also additional parameters that are used for every selected benchmark:
   '-d' duration time in seconds(by default  every benchmark has it's own duration time)"
+  echo "Note:
+  The mpiib benchmark cannot use the -d option as it has no time limit.
+  It transmits a certain amount of data through network a certain number of times
+  and is independent of time."
 }
