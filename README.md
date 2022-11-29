@@ -17,6 +17,13 @@ Configure [HPAS](https://github.com/peaclab/HPAS)
 
 Configure [osu](https://mvapich.cse.ohio-state.edu/benchmarks/)
 
+This benchmark requires oshcc and oshcxx compilers.
+On Lomonosov-2, use an additional command to have these compilers: 
+
+    module add openmpi/4.1.1-icc
+
+For all:
+
     chmod -R 777 src/osu-micro-benchmarks
     cd src/osu-micro-benchmarks
     ./configure CC=oshcc CXX=oshcxx
@@ -27,6 +34,7 @@ Configure [osu](https://mvapich.cse.ohio-state.edu/benchmarks/)
 
 Usage
 ------------
-To run benchmarks use `jdc.sh` script or `sbatch-jdc.sh` to run benchmarks using sbatch.
+To run benchmarks using a workload manager use the `jdc.sh` script.
+To run benchmarks using sbatch use the `sbatch-jdc.sh` script.
 
 To get help use parameter `-h` or `--help`
