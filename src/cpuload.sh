@@ -23,6 +23,10 @@ cpuload() {
     #10 minutes to run as default time
     options=$options" -d 600"
   fi
+  if [[ ! "$options" == *"-v"* ]]; then
+    #show verbose data
+    options=$options" -v"
+  fi
   command="$SCRIPT_DIR/src/HPAS/bin/hpas cpuoccupy $options"
   cpuloadCall $command
 }

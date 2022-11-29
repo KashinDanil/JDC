@@ -19,6 +19,10 @@ memfree() {
     #run for 10 minutes with default period and certain memory
     options=$options" -d 600 -s "$(($TOTAL_MEM_KB / 600 / 5 / 4))
   fi
+  if [[ ! "$options" == *"-v"* ]]; then
+    #show verbose data
+    options=$options" -v"
+  fi
   command="$SCRIPT_DIR/src/HPAS/bin/hpas memleak $options"
   memfreeCall $command
 }
