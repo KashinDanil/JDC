@@ -14,6 +14,7 @@ sbatchParameters=''
 sbatchScript='run' #use run as default script for benchmarks
 sbatchMPIParameters=''
 sbatchMPIScript='ompi' #use run as default script for mpi benchmarks
+numberOfIterations=1
 
 benchmarks=()
 
@@ -47,6 +48,23 @@ do
   fi
   if [[ $key = "--sbatch-mpi-script" ]]; then
     sbatchMPIScript=$value
+    shift
+    continue
+  fi
+  if [[ $key = "-n" ]]; then
+    if [[ $value != "-n" ]]
+    then
+      numberOfIterations=$value
+    else
+      re='^[0-9]+$'
+      if ! [[ $2 =~ $re ]] ; then
+        echo "Specify the number of iterations after using -n flag"
+        exit
+      else
+        numberOfIterations=$2
+        shift
+      fi
+    fi
     shift
     continue
   fi
@@ -84,16 +102,26 @@ if [ "${#benchmarks[@]}" -eq "0" ]; then
   benchmarksCounter=${#benchmarks[@]}
 fi
 
-for benchmark in "${benchmarks[@]}"
-do
-  key=${benchmark%%=*}
-  if [[ $key == *"mpi"* ]]; then
-    #use mpi params to mpi benchmark
-    command="sbatch ${sbatchMPIParameters} ${sbatchMPIScript} -- ./jdc.sh"
-  else
-    #use regular params to sequential benchmark
-    command="sbatch ${sbatchParameters} ${sbatchScript} -- ./jdc.sh"
-  fi
-  echo "$command '${benchmark}' ${commonParams[@]}"
-  $command "${benchmark}" ${commonParams[@]}
+sleepTime=60
+for ((i = 0; i < numberOfIterations; i++)); do
+  for benchmark in "${benchmarks[@]}"
+  do
+    key=${benchmark%%=*}
+    if [[ $key == *"mpi"* ]]; then
+      #use mpi params to mpi benchmark
+      command="sbatch ${sbatchMPIParameters} ${sbatchMPIScript} -- ./jdc.sh"
+    else
+      #use regular params to sequential benchmark
+      command="sbatch ${sbatchParameters} ${sbatchScript} -- ./jdc.sh"
+    fi
+
+    while : ; do
+      echo "$command '${benchmark}' ${commonParams[@]}"
+      res=$($command "${benchmark}" ${commonParams[@]})
+      echo $res
+      [[ "$res" != *"Submitted batch job"* ]] || break
+      echo "Was not able to submit a batch job. Waiting $sleepTime seconds"
+      sleep $sleepTime
+    done
+  done
 done

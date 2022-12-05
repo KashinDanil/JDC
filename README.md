@@ -35,6 +35,13 @@ For all:
 Usage
 ------------
 To run benchmarks using a workload manager use the `jdc.sh` script.
-To run benchmarks using sbatch use the `sbatch-jdc.sh` script.
+To run benchmarks using sbatch use the `sbatch-jdc.sh` script 
+(This script runs `jdc.sh` using sbatch).
 
 To get help use parameter `-h` or `--help`
+
+The following tests are currently available:
+Currently available following benchmarks:
+1. cpuload - runs [NUMBER_OF_CORES_PER_NODE](https://github.com/KashinDanil/JDC/blob/3244eafabb43b89c17f47ffae34ac60257f25381/config.sh#L3) times [HPAS](https://github.com/peaclab/HPAS) cpuoccupy anomaly
+2. memfree - runs [HPAS](https://github.com/peaclab/HPAS) memleak anomaly
+3. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark that passes data between two nodes
