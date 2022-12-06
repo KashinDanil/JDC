@@ -25,5 +25,10 @@ help() {
   echo "Note:
   The mpiib benchmark cannot use the -d option as it has no time limit.
   It transmits a certain amount of data through network a certain number of times
-  and is independent of time."
+  and is independent of time.
+
+Default benchmarks parameters:
+  cpuload -u 100 -d 600 -v                            #uses 100% CPU usage for 10 minutes with verbose returns
+  memfree -d 600 -s 'TOTAL_MEM_B / 600 / 5 / 4' -v    #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
+  mpiib -m 16384:16384 -i 2000000 -x 0                #passes 16 bytes between two nodes 2 million times with no extra passes for warmup"
 }
