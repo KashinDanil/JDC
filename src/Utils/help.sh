@@ -29,25 +29,25 @@ help() {
 
 Benchmarks parameters:
 cpuload:
-  -u, --utilization (=100%)  The utilization (%) of one core.
-  -d, --duration (=-1.0)     The total duration (in seconds), -1 for infinite.
-  -t, --start (=0.0)         The time to wait (in seconds) before starting the anomaly.
-  -v, --verbose              Prints execution information.
-  -h, --help                 Prints this message
+  -u, --utilization (=100%)   The utilization (%) of one core.
+  -d, --duration (=-1.0)      The total duration (in seconds), -1 for infinite.
+  -t, --start (=0.0)          The time to wait (in seconds) before starting the anomaly.
+  -v, --verbose               Prints execution information.
+  -h, --help                  Prints this message
 
 memfree:
-  -s, --size (=20M)         The size (in bytes) of the array to be allocated.
-  -p, --period (=0.2)       The time to wait (in seconds) between array allocations.
-  -d, --duration (=-1.0)    The total duration (in seconds), -1 for infinite.
-  -t, --start (=0.0)        The time to wait (in seconds) before starting the anomaly.
-  -v, --verbose             Prints execution information.
-  -h, --help                Prints this message.
+  -s, --size (=20M)           The size (in bytes) of the array to be allocated.
+  -p, --period (=0.2)         The time to wait (in seconds) between array allocations.
+  -d, --duration (=-1.0)      The total duration (in seconds), -1 for infinite.
+  -t, --start (=0.0)          The time to wait (in seconds) before starting the anomaly.
+  -v, --verbose               Prints execution information.
+  -h, --help                  Prints this message.
 
 mpiib:
-  tiny                      Executes parameters -i 500000
-  small                     Executes parameters -i 1000000
-  medium                    Executes parameters -i 2000000
-  large                     Executes parameters -i 3000000
+  tiny                        Executes parameters -i 500000
+  small                       Executes parameters -i 1000000
+  medium                      Executes parameters -i 2000000
+  large                       Executes parameters -i 3000000
   -b, --buffer-num            Use different buffers to perform data transfer (default single)
                               Options: single, multiple
   -m, --message-size          [MIN:]MAX  set the minimum and/or the maximum message size to MIN and/or MAX
@@ -67,7 +67,7 @@ mpiib:
                               -D cont                          //Contiguous
                               -D vect:[stride]:[block_length]  //Vector
                               -D indx:[ddt file path]          //Index
-  -G, --graph tty,png,pdf    graph output of per iteration values.
+  -G, --graph tty,png,pdf     graph output of per iteration values.
   -h, --help                  print this help
   -v, --version               print version info
 
