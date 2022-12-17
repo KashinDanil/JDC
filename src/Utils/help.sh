@@ -74,6 +74,6 @@ mpiib:
 Default benchmarks parameters:
   cpuload -u 100 -d 600 -v                            #uses 100% CPU usage for 10 minutes with verbose returns
   memfree -d 600 -s 'TOTAL_MEM_B / 600 / 5 / 4' -v    #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
-  mpiib -m 16384:16384 medium -x 0                #passes 16 bytes between two nodes 2 million times with no extra passes for warmup
+  mpiib -m 16384:16384 medium -x 0                    #passes 16 bytes between two nodes 2 million times with no extra passes for warmup
 "
 }
