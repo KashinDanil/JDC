@@ -10,6 +10,9 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 availableBenchmarks=$(getAvailableBenchmarks)
 
+resultFileName="sbatch-jdc-$(($(date +%s%N)/1000000)).out"
+additionalParseParams=''
+
 sbatchParameters=''
 sbatchScript='run' #use run as default script for benchmarks
 sbatchMPIParameters=''
@@ -48,6 +51,16 @@ do
   fi
   if [[ $key = "--sbatch-mpi-script" ]]; then
     sbatchMPIScript=$value
+    shift
+    continue
+  fi
+  if [[ $key = "--result-file" ]]; then
+    resultFileName=$value
+    shift
+    continue
+  fi
+  if [[ $key = "--dndoof" ]]; then
+    additionalParseParams=$additionalParseParams" --dndoof"
     shift
     continue
   fi
@@ -103,6 +116,7 @@ if [ "${#benchmarks[@]}" -eq "0" ]; then
 fi
 
 sleepTime=60
+parseResults=''
 for ((i = 0; i < numberOfIterations; i++)); do
   for benchmark in "${benchmarks[@]}"
   do
@@ -119,9 +133,21 @@ for ((i = 0; i < numberOfIterations; i++)); do
       echo "$command '${benchmark}' ${commonParams[@]}"
       res=$($command "${benchmark}" ${commonParams[@]})
       echo $res
-      [[ "$res" != *"Submitted batch job"* ]] || break
-      echo "Was not able to submit a batch job. Waiting $sleepTime seconds"
-      sleep $sleepTime
+      if [[ "$res" != *"Submitted batch job"* ]]; then
+        echo "Was not able to submit a batch job. Waiting $sleepTime seconds"
+        sleep $sleepTime
+      else
+        parseResults=$parseResults" $key=slurm-${res/'Submitted batch job '/''}.out"
+        break
+      fi
     done
   done
 done
+
+command="python src/parse-results/sbatch-parse.py $parseResults$additionalParseParams"
+echo $command
+$command >> $resultFileName
+
+echo ""
+echo ""
+echo "The results are presented in $resultFileName"
