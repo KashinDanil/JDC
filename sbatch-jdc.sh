@@ -149,7 +149,7 @@ done
 
 minNumberOfLines=1
 while : ; do
-  queue=$(squeue -j ${jobIds[@]})
+  queue=$(squeue -j $(printf ",%s" "${jobIds[@]}"))
   if [[ $(echo "$queue" | wc -l) != $minNumberOfLines ]]; then
     echo "Waiting $sleepTime seconds for all jobs to complete."
     sleep $sleepTime
