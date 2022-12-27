@@ -117,6 +117,7 @@ fi
 
 sleepTime=60
 parseResults=''
+jobIds=()
 for ((i = 0; i < numberOfIterations; i++)); do
   for benchmark in "${benchmarks[@]}"
   do
@@ -137,11 +138,24 @@ for ((i = 0; i < numberOfIterations; i++)); do
         echo "Was not able to submit a batch job. Waiting $sleepTime seconds"
         sleep $sleepTime
       else
-        parseResults=$parseResults" $key=slurm-${res/'Submitted batch job '/''}.out"
+        jobID=${res/'Submitted batch job '/''}
+        jobIds+=("$jobID")
+        parseResults=$parseResults" $key=slurm-$jobID.out"
         break
       fi
     done
   done
+done
+
+minNumberOfLines=1
+while : ; do
+  queue=$(squeue -j ${jobIds[@]})
+  if [[ $(echo "$queue" | wc -l) != $minNumberOfLines ]]; then
+    echo "Waiting $sleepTime seconds for all jobs to complete."
+    sleep $sleepTime
+  else
+    break
+  fi
 done
 
 command="python src/parse-results/sbatch-parse.py $parseResults$additionalParseParams"
