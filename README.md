@@ -34,8 +34,8 @@ For all:
 
 Usage
 ------------
-To run benchmarks using a workload manager use the `jdc.sh` script.
-To run benchmarks using sbatch use the `sbatch-jdc.sh` script 
+To run benchmarks directly use `jdc.sh` script.
+To run benchmarks using sbatch use `sbatch-jdc.sh` script 
 (This script runs `jdc.sh` using sbatch).
 
 To get help use parameter `-h` or `--help`
