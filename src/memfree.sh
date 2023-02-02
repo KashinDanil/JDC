@@ -8,7 +8,7 @@ memfree() {
   local options=${@##*( )}
   if [[ ! "$options" == *"-p"* ]] && [[ ! "$options" == *"-s"* ]] && [[ ! "$options" == *"-d"* ]]; then
     #run for 10 minutes with default period and certain memory
-    options=$options" -d 600 -s "$(($TOTAL_MEM_B / 600 / 5 / 4))
+    options=$options" -d 600 -s "$(($TOTAL_MEM_B / 600 / 50 / 4))
   fi
   if [[ ! "$options" == *"-v"* ]]; then
     #show verbose data
