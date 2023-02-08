@@ -65,7 +65,7 @@ if [ "${#benchmarks[@]}" -eq "0" ]; then
 fi
 
 #run chosen benchmarks using all parameters
-for (( i=0; i < $benchmarksCounter; i++ )) do
-  echo -e "Run benchmark: \033[32m"${benchmarks[$i]}"\033[0m" ${parameters[$i]##*( )} ${commonParams[@]}
-  ${benchmarks[$i]} ${parameters[$i]} ${commonParams[@]}
+for (( bn=0; bn < $benchmarksCounter; bn++ )) do
+  echo -e "Run benchmark: \033[32m"${benchmarks[$bn]}"\033[0m" ${parameters[$bn]##*( )} ${commonParams[@]}
+  ${benchmarks[$bn]} ${parameters[$bn]} ${commonParams[@]}
 done

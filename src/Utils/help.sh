@@ -35,6 +35,14 @@ cpuload:
   -v, --verbose               Prints execution information.
   -h, --help                  Prints this message
 
+cpuloadavg:
+  -u, --utilization (=100%)   The utilization (%) of one core.
+  -d, --duration (=-1.0)      The total duration (in seconds), -1 for infinite.
+  -t, --start (=0.0)          The time to wait (in seconds) before starting the anomaly.
+  -v, --verbose               Prints execution information.
+  -h, --help                  Prints this message
+  -l, --loadavg               Integer of desired load average
+
 memfree:
   -s, --size (=20M)           The size (in bytes) of the array to be allocated.
   -p, --period (=0.2)         The time to wait (in seconds) between array allocations.
@@ -42,6 +50,7 @@ memfree:
   -t, --start (=0.0)          The time to wait (in seconds) before starting the anomaly.
   -v, --verbose               Prints execution information.
   -h, --help                  Prints this message.
+Attention: There is no upper limit on allocated memory, so make sure you don't run out of memory
 
 mpiib:
   tiny                        Executes parameters -i 500000
@@ -73,7 +82,8 @@ mpiib:
 
 Default benchmarks parameters:
   cpuload -u 100 -d 600 -v                            #uses 100% CPU usage for 10 minutes with verbose returns
-  memfree -d 600 -s 'TOTAL_MEM_B / 600 / 50 / 4' -v    #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
+  cpuloadavg -u 100 -d 600 -v -l 10                   #runs 10 processes loading the processor
+  memfree -d 600 -s 'TOTAL_MEM_B / 600 / 50 / 4' -v   #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
   mpiib -m 16384:16384 medium -x 0                    #passes 16 bytes between two nodes 2 million times with no extra passes for warmup
 "
 }
