@@ -23,10 +23,6 @@ cpuloadavg() {
     #10 minutes to run as default time
     options=$options" -d 600"
   fi
-  if [[ ! "$options" == *"-v"* ]]; then
-    #show verbose data
-    options=$options" -v"
-  fi
   loadAvg=10
   while [ -n "$1" ]
   do
@@ -36,6 +32,8 @@ cpuloadavg() {
     fi
     shift
   done
+
+  echo "Expected load average is $loadAvg"
 
   command="$SCRIPT_DIR/src/HPAS/bin/hpas cpuoccupy $options"
   cpuloadavgCall $command
