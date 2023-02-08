@@ -28,6 +28,11 @@ do
   key=${param%%=*}
   value=${param#*=}
 
+  #set the value empty if it was not set by an equal sign
+  if [[ $key = $value ]]; then
+    value=''
+  fi
+
   if [[ $param = "-h" ]] || [[ $param = "--help" ]]; then
     help
     sbatchHelp

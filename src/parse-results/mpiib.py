@@ -15,9 +15,10 @@ def main():
         return
     with open(resultFileName) as f:
         line = f.read()
-        res = re.findall("#\s+Size\s+Bandwidth\s+\(MB/s\)\s+\d+\s+(\d+(\.\d+)?)", line, re.MULTILINE)
+        res = re.findall("\d+\s+(\d+(\.\d+)?)", line, re.MULTILINE)
         if (res):
-            print("Expected network bandwidth: " + (res[0][0] if type(res[0]) is tuple else res[0])
+            print("Expected network bandwidth: "
+                  + (res[len(res) - 1][0] if type(res[len(res) - 1]) is tuple else res[len(res) - 1])
                   + " MB/s in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
             if ('--dndoof' not in sys.argv):
