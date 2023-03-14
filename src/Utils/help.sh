@@ -29,56 +29,63 @@ help() {
 
 Benchmarks parameters:
 cpuload:
-  -u, --utilization (=100%)   The utilization (%) of one core.
-  -d, --duration (=-1.0)      The total duration (in seconds), -1 for infinite.
-  -t, --start (=0.0)          The time to wait (in seconds) before starting the anomaly.
-  -v, --verbose               Prints execution information.
-  -h, --help                  Prints this message
+  -u, --utilization (=100%)       The utilization (%) of one core.
+  -d, --duration (=-1.0)          The total duration (in seconds), -1 for infinite.
+  -t, --start (=0.0)              The time to wait (in seconds) before starting the anomaly.
+  -v, --verbose                   Prints execution information.
+  -h, --help                      Prints this message
 
 cpuloadavg:
-  -u, --utilization (=100%)   The utilization (%) of one core.
-  -d, --duration (=-1.0)      The total duration (in seconds), -1 for infinite.
-  -t, --start (=0.0)          The time to wait (in seconds) before starting the anomaly.
-  -v, --verbose               Prints execution information.
-  -h, --help                  Prints this message
-  -l, --loadavg               Integer of desired load average
+  -u, --utilization (=100%)       The utilization (%) of one core.
+  -d, --duration (=-1.0)          The total duration (in seconds), -1 for infinite.
+  -t, --start (=0.0)              The time to wait (in seconds) before starting the anomaly.
+  -v, --verbose                   Prints execution information.
+  -h, --help                      Prints this message
+  -l, --loadavg                   Integer of desired load average
 
 memfree:
-  -s, --size (=20M)           The size (in bytes) of the array to be allocated.
-  -p, --period (=0.2)         The time to wait (in seconds) between array allocations.
-  -d, --duration (=-1.0)      The total duration (in seconds), -1 for infinite.
-  -t, --start (=0.0)          The time to wait (in seconds) before starting the anomaly.
-  -v, --verbose               Prints execution information.
-  -h, --help                  Prints this message.
+  -s, --size (=20M)               The size (in bytes) of the array to be allocated.
+  -p, --period (=0.2)             The time to wait (in seconds) between array allocations.
+  -d, --duration (=-1.0)          The total duration (in seconds), -1 for infinite.
+  -t, --start (=0.0)              The time to wait (in seconds) before starting the anomaly.
+  -v, --verbose                   Prints execution information.
+  -h, --help                      Prints this message.
 Attention: There is no upper limit on allocated memory, so make sure you don't run out of memory
 
 mpiib:
-  tiny                        Executes parameters -i 500000
-  small                       Executes parameters -i 1000000
-  medium                      Executes parameters -i 2000000
-  large                       Executes parameters -i 3000000
-  -b, --buffer-num            Use different buffers to perform data transfer (default single)
-                              Options: single, multiple
-  -m, --message-size          [MIN:]MAX  set the minimum and/or the maximum message size to MIN and/or MAX
-                              bytes respectively. Examples:
-                              -m 128      // min = default, max = 128
-                              -m 2:128    // min = 2, max = 128
-                              -m 2:       // min = 2, max = default
-  -M, --mem-limit SIZE        set per process maximum memory consumption to SIZE bytes
-                              (default 536870912)
-  -i, --iterations ITER       set iterations per message size to ITER (default 1000 for small
-                              messages, 100 for large messages)
-  -x, --warmup ITER           set number of warmup iterations to skip before timing (default 200)
-  -W, --window-size SIZE      set number of messages to send before synchronization (default 64)
-  -c, --validation            Enable or disable validation. Disabled by default.
-  -u, --validation-warmup ITR Set number of warmup iterations to skip before timing when validation is enabled (default 5)
-  -D, --ddt [TYPE]:[ARGS]     Enable DDT support
-                              -D cont                          //Contiguous
-                              -D vect:[stride]:[block_length]  //Vector
-                              -D indx:[ddt file path]          //Index
-  -G, --graph tty,png,pdf     graph output of per iteration values.
-  -h, --help                  print this help
-  -v, --version               print version info
+  tiny                            Executes parameters -i 500000
+  small                           Executes parameters -i 1000000
+  medium                          Executes parameters -i 2000000
+  large                           Executes parameters -i 3000000
+  -b, --buffer-num                Use different buffers to perform data transfer (default single)
+                                  Options: single, multiple
+  -m, --message-size              [MIN:]MAX  set the minimum and/or the maximum message size to MIN and/or MAX
+                                  bytes respectively. Examples:
+                                  -m 128      // min = default, max = 128
+                                  -m 2:128    // min = 2, max = 128
+                                  -m 2:       // min = 2, max = default
+  -M, --mem-limit SIZE            set per process maximum memory consumption to SIZE bytes
+                                  (default 536870912)
+  -i, --iterations ITER           set iterations per message size to ITER (default 1000 for small
+                                  messages, 100 for large messages)
+  -x, --warmup ITER               set number of warmup iterations to skip before timing (default 200)
+  -W, --window-size SIZE          set number of messages to send before synchronization (default 64)
+  -c, --validation                Enable or disable validation. Disabled by default.
+  -u, --validation-warmup         ITR Set number of warmup iterations to skip before timing when validation is enabled (default 5)
+  -D, --ddt [TYPE]:[ARGS]         Enable DDT support
+                                  -D cont                          //Contiguous
+                                  -D vect:[stride]:[block_length]  //Vector
+                                  -D indx:[ddt file path]          //Index
+  -G, --graph tty,png,pdf         graph output of per iteration values.
+  -h, --help                      print this help
+  -v, --version                   print version info
+
+l1cache:
+  -i, --iterations (=1000000000)  The number of iterations per minute (Each iteration equals 3 misses).
+  -d, --duration (=600)           The number of seconds to the program to work.
+  -h, --help                      Prints this message.
+
+Attention: There is no upper limit on allocated memory, so make sure you don't run out of memory
 
 Default benchmarks parameters:
   cpuload -u 100 -d 600 -v                            #uses 100% CPU usage for 10 minutes with verbose returns

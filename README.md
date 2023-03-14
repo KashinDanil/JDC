@@ -31,6 +31,13 @@ For all:
     cd ../..
 
 
+Configure [other benchmarks]
+
+    chmod -R 777 src/Tests/Cache
+    cd src/Tests/Cache
+	make
+    cd ../../..
+
 Usage
 ------------
 To run benchmarks directly use `jdc.sh` script.
@@ -44,3 +51,4 @@ Currently available following benchmarks:
 1. cpuload - runs [NUMBER_OF_CORES_PER_NODE](https://github.com/KashinDanil/JDC/blob/3244eafabb43b89c17f47ffae34ac60257f25381/config.sh#L3) times [HPAS](https://github.com/peaclab/HPAS) cpuoccupy anomaly
 2. memfree - runs [HPAS](https://github.com/peaclab/HPAS) memleak anomaly
 3. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark that passes data between two nodes
+4. l1cache - runs custom-made test that addresses to an array's element that is not in l1 cache in a cycle for a specific amount of time
