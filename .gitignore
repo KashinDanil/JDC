@@ -93,3 +93,5 @@ src/HPAS/results.yaml
 src/HPAS/clover.in.tmp
 src/HPAS/*.log
 src/HPAS/__pycache__/
+
+src/Tests/Cache/L1Cache
