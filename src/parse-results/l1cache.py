@@ -15,7 +15,7 @@ def main():
         return
     with open(resultFileName) as f:
         line = f.read()
-        res = re.findall("Expected total number of L1 cache misses: (\d+))", line, re.MULTILINE)
+        res = re.findall("Expected total number of L1 cache misses: (\d+)", line, re.MULTILINE)
         if (res):
             print("Expected number of l1 cache misses: " + res[len(res) - 1] + " in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
