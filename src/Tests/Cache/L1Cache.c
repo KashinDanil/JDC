@@ -56,7 +56,7 @@ int arraySum(int N, int *arr) {
 //    exit(1);
 //}
 
-void makeMiss(int iterNum, int duration) {
+void makeMiss(long long iterNum, int duration) {
     int l1_dcache_line_size = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
     int l1_dcache_size = sysconf(_SC_LEVEL1_DCACHE_SIZE);
 
@@ -99,7 +99,8 @@ void makeMiss(int iterNum, int duration) {
     struct timespec mt1, mt2;
     clock_gettime(CLOCK_REALTIME, &mt1);
 
-    int i, cur_min, key,
+    long long i;
+    int cur_min, key,
             prev_key = N - 1;
     long long miss_count = 0;
     long long time_spent;
@@ -114,7 +115,7 @@ void makeMiss(int iterNum, int duration) {
         }
         clock_gettime(CLOCK_REALTIME, &mt2);
         time_spent = mt2.tv_sec - mt1.tv_sec;
-        printf("Time spent: %lld s for %d iterations\n", time_spent, iterNum);
+        printf("Time spent: %lld s for %lld iterations\n", time_spent, iterNum);
         if (time_spent < interval * (cur_min + 1)) {
             printf("Sleep for %lld s\n", interval * (cur_min + 1) - time_spent);
             sleep((interval * (cur_min + 1) - time_spent));
@@ -154,7 +155,7 @@ int main(int argc, char *argv[]) {
         help();
         return 0;
     }
-    int iterNum = atoi(argv[1]);
+    long long iterNum = atoi(argv[1]);
     int duration = atoi(argv[2]);
 
     makeMiss(iterNum, duration);
