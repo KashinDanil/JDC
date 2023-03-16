@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
         help();
         return 0;
     }
-    long long iterNum = atoi(argv[1]);
+    long long iterNum = atoll(argv[1]);
     int duration = atoi(argv[2]);
 
     makeMiss(iterNum, duration);
