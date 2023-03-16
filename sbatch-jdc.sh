@@ -70,7 +70,7 @@ do
     continue
   fi
   if [[ $key = "-n" ]]; then
-    if [[ $value != "-n" ]]
+    if [[ $value != "" ]]
     then
       numberOfIterations=$value
     else
