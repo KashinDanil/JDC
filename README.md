@@ -9,7 +9,7 @@ On Lomonosov-2, you will need to use the following commands to get necessary mod
 
     module add openmpi/4.1.1-icc;module add cuda/10.1
 
-After that you can simply compile all benchmarks using command:
+To compile all tests, use the command:
 
     make
 
