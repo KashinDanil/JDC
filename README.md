@@ -5,50 +5,26 @@ If you want to change it replace the values of the corresponding variables in `c
 
 Installation
 ------------
-Configure [HPAS](https://github.com/peaclab/HPAS)
-
-    chmod -R 777 src/HPAS
-    cd src/HPAS
-    ./autogen.sh
-    ./configure --prefix=$PWD
-    make
-    make install
-    cd ../..
-
-Configure [osu](https://mvapich.cse.ohio-state.edu/benchmarks/)
-
-This benchmark requires oshcc and oshcxx compilers.
-On Lomonosov-2, use an additional command to have these compilers: 
+On Lomonosov-2, you will need to use the following commands to get necessary modules:
 
     module add openmpi/4.1.1-icc;module add cuda/10.1
 
-For all:
+After that you can simply compile all benchmarks using command:
 
-    chmod -R 777 src/osu-micro-benchmarks
-    cd src/osu-micro-benchmarks
-    ./configure CC=oshcc CXX=oshcxx
-	make
-    cd ../..
-
-
-Configure [other benchmarks]
-
-    chmod -R 777 src/Tests/Cache
-    cd src/Tests/Cache
-	make
-    cd ../../..
+    make
 
 Usage
 ------------
 To run benchmarks directly use `jdc.sh` script.
-To run benchmarks using sbatch use `sbatch-jdc.sh` script 
-(This script runs `jdc.sh` using sbatch).
+To run benchmarks using sbatch use `sbatch-jdc.sh` script.
 
 To get help use parameter `-h` or `--help`
 
-The following tests are currently available:
-Currently available following benchmarks:
+
+Currently, available following benchmarks:
 1. cpuload - runs [NUMBER_OF_CORES_PER_NODE](https://github.com/KashinDanil/JDC/blob/3244eafabb43b89c17f47ffae34ac60257f25381/config.sh#L3) times [HPAS](https://github.com/peaclab/HPAS) cpuoccupy anomaly
-2. memfree - runs [HPAS](https://github.com/peaclab/HPAS) memleak anomaly
-3. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark that passes data between two nodes
-4. l1cache - runs custom-made test that addresses to an array's element that is not in l1 cache in a cycle for a specific amount of time
+2. cpuloadavg - runs [HPAS](https://github.com/peaclab/HPAS) cpuoccupy anomaly
+3. memfree - runs [HPAS](https://github.com/peaclab/HPAS) memleak anomaly
+4. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark
+5. l1cache - runs custom-made test for L1 cache misses
+6. gpuload - runs custom-made test for loading GPU
