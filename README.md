@@ -20,7 +20,7 @@ Configure [osu](https://mvapich.cse.ohio-state.edu/benchmarks/)
 This benchmark requires oshcc and oshcxx compilers.
 On Lomonosov-2, use an additional command to have these compilers: 
 
-    module add openmpi/4.1.1-icc
+    module add openmpi/4.1.1-icc;module add cuda/10.1
 
 For all:
 
