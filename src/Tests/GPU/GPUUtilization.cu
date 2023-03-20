@@ -126,7 +126,8 @@ int main(int argc, char** argv){
     cudaMemcpy(A_d.get_values(),A_h.get_values(),A_h.get_size(),cudaMemcpyHostToDevice);
     cudaMemcpy(B_d.get_values(),B_h.get_values(),B_h.get_size(),cudaMemcpyHostToDevice);
     cudaDeviceSynchronize();
-        
+
+    std::cout << "Starting gpuload with utilization:" << wished_util << "%" << std::endl;
     for (int iter = 0; iter < iter_limit; iter++) {
 
         auto start = chrono::steady_clock::now();
@@ -143,7 +144,7 @@ int main(int argc, char** argv){
         std::this_thread::sleep_for(std::chrono::milliseconds(time_sleep));
         auto end1 = chrono::steady_clock::now();
 
-        std::cout << "Kernel time: " << ms << " , Sleep time: " << chrono::duration_cast<chrono::milliseconds>(end1 - start1).count() << std::endl;
+//        std::cout << "Kernel time: " << ms << " , Sleep time: " << chrono::duration_cast<chrono::milliseconds>(end1 - start1).count() << std::endl;
     }
 
     cudaMemcpy(Device_to_HostSum.get_values(),A_d.get_values(),A_h.get_size(),cudaMemcpyDeviceToHost);
