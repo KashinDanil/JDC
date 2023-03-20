@@ -31,5 +31,6 @@ mpiib() {
     options=$options" -x 0"
   fi
   command="$SCRIPT_DIR/src/osu-micro-benchmarks/c/mpi/pt2pt/osu_bw $options"
+#  echo $command
   $command
 }

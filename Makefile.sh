@@ -18,3 +18,8 @@ chmod -R 777 src/Tests/Cache;
 cd src/Tests/Cache;
 make;
 cd ../../..;
+
+chmod -R 777 src/Tests/GPU;
+cd src/Tests/GPU;
+make;
+cd ../../..;

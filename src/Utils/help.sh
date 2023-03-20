@@ -85,6 +85,11 @@ l1cache:
   -d, --duration (=600)           The number of seconds to the program to work.
   -h, --help                      Prints this message.
 
+gpuload:
+  -u, --utilization (=70)         The utilization (%).
+  -i, --iterations (=10000)       The number of iterations per minute.
+  -h, --help                      Prints this message.
+
 Attention: There is no upper limit on allocated memory, so make sure you don't run out of memory
 
 Default benchmarks parameters:

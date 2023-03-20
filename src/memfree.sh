@@ -15,5 +15,6 @@ memfree() {
     options=$options" -v"
   fi
   command="$SCRIPT_DIR/src/HPAS/bin/hpas memleak $options"
+#  echo $command
   $command
 }

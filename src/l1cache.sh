@@ -25,6 +25,6 @@ l1cache() {
       testOptions=""
   fi
   command="$SCRIPT_DIR/src/Tests/Cache/L1Cache $testOptions"
-  echo $command
+#  echo $command
   $command
 }
