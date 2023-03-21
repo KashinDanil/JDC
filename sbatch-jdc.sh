@@ -150,7 +150,7 @@ for ((i = 0; i < numberOfIterations; i++)); do
         echo -e -n " Was not able to submit a batch job. Waiting $sleepTime seconds"
         sleep $sleepTime
       else
-        if (( repeat == 0 )); then
+        if (( repeat > 0 )); then
           echo ""
         fi
         echo $res
@@ -177,7 +177,7 @@ while : ; do
     echo -e -n " Waiting $sleepTime seconds for all jobs to complete."
     sleep $sleepTime
   else
-    if (( repeat == 0 )); then
+    if (( repeat > 0 )); then
       echo ""
     fi
     break
