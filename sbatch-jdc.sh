@@ -150,8 +150,11 @@ for ((i = 0; i < numberOfIterations; i++)); do
         echo -e -n " Was not able to submit a batch job. Waiting $sleepTime seconds"
         sleep $sleepTime
       else
-        echo ""
+        if (( repeat == 0 )); then
+          echo ""
+        fi
         echo $res
+        echo ""
         jobID=${res/'Submitted batch job '/''}
         jobIds+=("$jobID")
         parseResults=$parseResults" $key=slurm-$jobID.out"
@@ -174,7 +177,9 @@ while : ; do
     echo -e -n " Waiting $sleepTime seconds for all jobs to complete."
     sleep $sleepTime
   else
-    echo ""
+    if (( repeat == 0 )); then
+      echo ""
+    fi
     break
   fi
 done
