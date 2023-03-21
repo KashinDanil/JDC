@@ -48,7 +48,6 @@ memfree:
   -p, --period (=0.2)             The time to wait (in seconds) between array allocations.
   -d, --duration (=-1.0)          The total duration (in seconds), -1 for infinite.
   -t, --start (=0.0)              The time to wait (in seconds) before starting the anomaly.
-  -v, --verbose                   Prints execution information.
   -h, --help                      Prints this message.
 Attention: There is no upper limit on allocated memory, so make sure you don't run out of memory
 
