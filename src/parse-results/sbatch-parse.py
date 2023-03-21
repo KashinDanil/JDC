@@ -15,7 +15,6 @@ def main():
     tests = [item for item in sys.argv if '=' in item]
     tests.sort(key=lambda x: x.split("=")[0])
 
-    print(tests)
     for test in tests:
         data = test.split("=")
         command = "python " + realPath + data[0] + ".py '" + data[1] + "'" + additionalParseParams

@@ -85,7 +85,7 @@ int memleak(int argc, char *argv[])
     time_t rawtime;
     struct tm *timeinfo;
     FILE *fpipe;
-    char *command = "cat /proc/meminfo | grep -i active";
+    char *command = "cat /proc/meminfo | grep -i MemFree";
     char line[256];
     char *keep;
     long int j;
