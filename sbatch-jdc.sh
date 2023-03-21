@@ -148,7 +148,7 @@ for ((i = 0; i < numberOfIterations; i++)); do
         fi
         echo -en "\033[0;33m"
         printf "%${repeat}s" |sed 's/ /*/g'
-        echo -en " Was not able to submit a batch job. Waiting $sleepTime seconds "
+        echo -en " Was not able to submit a batch job. Waiting $((sleepTime * repeat)) seconds "
         printf "%${repeat}s" |sed 's/ /*/g'
         echo -en "\033[0m"
         sleep $sleepTime
@@ -178,7 +178,7 @@ while : ; do
     fi
     echo -en "\033[0;33m"
     printf "%${repeat}s" |sed 's/ /*/g'
-    echo -en " Waiting $sleepTime seconds for all jobs to complete "
+    echo -en " Waiting $((sleepTime * repeat)) seconds for all jobs to complete "
     printf "%${repeat}s" |sed 's/ /*/g'
     echo -en "\033[0m"
     sleep $sleepTime
