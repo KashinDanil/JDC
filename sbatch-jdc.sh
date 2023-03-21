@@ -150,7 +150,8 @@ for ((i = 0; i < numberOfIterations; i++)); do
         echo -e -n " Was not able to submit a batch job. Waiting $sleepTime seconds"
         sleep $sleepTime
       else
-        echo "\n"$res
+        echo ""
+        echo $res
         jobID=${res/'Submitted batch job '/''}
         jobIds+=("$jobID")
         parseResults=$parseResults" $key=slurm-$jobID.out"
@@ -161,12 +162,19 @@ for ((i = 0; i < numberOfIterations; i++)); do
 done
 
 minNumberOfLines=1
+repeat=0
 while : ; do
   queue=$(squeue -j $(printf ",%s" "${jobIds[@]}"))
   if [[ $(echo "$queue" | wc -l) != $minNumberOfLines ]]; then
-    echo "Waiting $sleepTime seconds for all jobs to complete."
+    repeat=$((repeat+1))
+    if (( repeat > 1 )); then
+        echo -en "\r\033[1K"
+    fi
+    printf "%${repeat}s" |sed 's/ /*/g'
+    echo -e -n " Waiting $sleepTime seconds for all jobs to complete."
     sleep $sleepTime
   else
+    echo ""
     break
   fi
 done
