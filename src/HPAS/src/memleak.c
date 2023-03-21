@@ -9,6 +9,7 @@
 static struct option const long_opt[] =
 {
     {"help", no_argument, NULL, 'h'},
+    {"verbose", no_argument, NULL, 'v'},
     {"size", required_argument, NULL, 's'},
     {"period", required_argument, NULL, 'p'},
     {"duration", required_argument, NULL, 'd'},
@@ -21,6 +22,7 @@ const char *memleak_usage = "Memory leak.\n\n"
     "-p, --period (=0.2)     The time to wait (in seconds) between array allocations.\n"
     "-d, --duration (=-1.0)  The total duration (in seconds), -1 for infinite.\n"
     "-t, --start (=0.0)      The time to wait (in seconds) before starting the anomaly.\n"
+    "-v, --verbose           Prints execution information.\n"
     "-h, --help              Prints this message.\n";
 static const char *short_opt = "hvd:s:p:t:";
 
@@ -28,6 +30,7 @@ int memleak(int argc, char *argv[])
 {
     int c;
 
+    bool verbose = false;
     long int size = 20 * 1024 * 1024;
     double period = 0.2;
     double duration = -1;
@@ -66,6 +69,10 @@ int memleak(int argc, char *argv[])
 
             case 'd':
                 duration = strtod(optarg, NULL);
+                break;
+
+            case 'v':
+                verbose = true;
                 break;
 
             case 'h':
@@ -110,7 +117,9 @@ int memleak(int argc, char *argv[])
         keep = temp;
     }
 
-    printf("UsedMemory: %lld B\n", usedMemory);
+    if (verbose) {
+        printf("UsedMemory: %lld B\n", usedMemory);
+    }
     time(&rawtime);
     timeinfo = localtime(&rawtime);
     printf("%sFinished leak.\n", asctime(timeinfo));
