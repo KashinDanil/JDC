@@ -11,10 +11,13 @@ def main():
     additionalParseParams = ''
     if ('--dndoof' in sys.argv):
         additionalParseParams += ' --dndoof'
-    for test in sys.argv:
+
+    tests = [item for item in sys.argv if '=' in item]
+    tests.sort(key=lambda x: x.split("=")[0])
+
+    print(tests)
+    for test in tests:
         data = test.split("=")
-        if (len(data) == 1):
-            continue
         command = "python " + realPath + data[0] + ".py '" + data[1] + "'" + additionalParseParams
         os.system(command)
 

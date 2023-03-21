@@ -135,14 +135,22 @@ for ((i = 0; i < numberOfIterations; i++)); do
       command="sbatch ${sbatchParameters} ${sbatchScript} -- ./jdc.sh"
     fi
 
+    repeat=0
     while : ; do
-      echo "$command '${benchmark}' ${commonParams[@]}"
-      res=$($command "${benchmark}" ${commonParams[@]})
+      if (( repeat == 0 )); then
+        echo "$command '${benchmark}' ${commonParams[@]}"
+      fi
+      res=$($command "${benchmark}" ${commonParams[@]} 2>&1 2>&1)
       if [[ "$res" != *"Submitted batch job"* ]]; then
-        echo "Was not able to submit a batch job. Waiting $sleepTime seconds"
+        repeat=$((repeat+1))
+        if (( repeat > 1 )); then
+            echo -en "\r\033[1K"
+        fi
+        printf "%${repeat}s" |sed 's/ /*/g'
+        echo -e -n " Was not able to submit a batch job. Waiting $sleepTime seconds"
         sleep $sleepTime
       else
-        echo $res
+        echo "\n"$res
         jobID=${res/'Submitted batch job '/''}
         jobIds+=("$jobID")
         parseResults=$parseResults" $key=slurm-$jobID.out"
