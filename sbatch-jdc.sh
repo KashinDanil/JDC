@@ -138,11 +138,11 @@ for ((i = 0; i < numberOfIterations; i++)); do
     while : ; do
       echo "$command '${benchmark}' ${commonParams[@]}"
       res=$($command "${benchmark}" ${commonParams[@]})
-      echo $res
       if [[ "$res" != *"Submitted batch job"* ]]; then
         echo "Was not able to submit a batch job. Waiting $sleepTime seconds"
         sleep $sleepTime
       else
+        echo $res
         jobID=${res/'Submitted batch job '/''}
         jobIds+=("$jobID")
         parseResults=$parseResults" $key=slurm-$jobID.out"
