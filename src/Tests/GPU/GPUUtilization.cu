@@ -90,15 +90,12 @@ int main(int argc, char** argv){
 
     using namespace std;
     
-    float time_sum;
     long values_num = static_cast<long>(pow(2, 29)) * 1.5;
     if (argc < 3) {
         printf("Pass wished utilization in the first argument and iterations limit in the second argument\n");
     }
     int wished_util = atoi(argv[1]);
     int iter_limit = atoi(argv[2]);
-//    int iter_limit = 10000;
-//    int wished_util = 70;
 
     ArrayHost<int> A_h (values_num);
     ArrayHost<int> B_h (values_num);

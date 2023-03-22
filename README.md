@@ -28,3 +28,24 @@ Currently, available following benchmarks:
 4. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark
 5. l1cache - runs custom-made test for L1 cache misses
 6. gpuload - runs custom-made test for loading GPU
+
+
+Examples
+------------
+    #runs all benchmarks one time
+    ./sbatch-jdc.sh
+
+    #runs all benchmarks three times
+    ./sbatch-jdc.sh -n 3
+    
+    #runs only cpuload with default parameters
+    ./sbatch-jdc.sh cpuload
+    
+    #runs only cpuload using 50% CPU usage for 15 minutes two times
+    ./sbatch-jdc.sh cpuload='-u 50 -d 900' -n 2
+    
+    #runs mpiib with default amount of passing data for 3 millions times without warmup and memfree with default parameters
+    ./sbatch-jdc.sh mpiib='-x 0 -i 3000000' memfree
+    
+    #runs all benchmarks with help option
+    ./sbatch-jdc.sh cpuload='-h' memfree='-h' mpiib='-h'

@@ -29,6 +29,7 @@ cpuloadavg() {
     if [[ "$1" == "-l" ]] || [[ "$1" == "--loadavg" ]]; then
       #number of processes to run
       loadAvg=$2
+      options=${options//$1 $2/}
     fi
     shift
   done
