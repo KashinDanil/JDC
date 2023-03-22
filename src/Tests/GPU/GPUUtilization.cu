@@ -6,13 +6,6 @@
 #include <chrono>
 #include <thread>
 
-double cpuSecond(){
-    struct timeval tp;
-    gettimeofday(&tp,NULL);
-    return ((double)tp.tv_sec + (double)tp.tv_usec*1.e-6);
-
-}
-
 
 template <class T>
 class ArrayHost{
@@ -61,22 +54,13 @@ public:
 
 
 template <typename type>
-void checkResult(type *host_array,type *device_array,const long array_size){
-    double epsilon  = 0.1;
+int sumResult(type *device_array,const long array_size){
+    int sum = 0;
     for (long i=0;i<array_size;i++){
-        if(abs(device_array[i] - host_array[i]) > epsilon){
-            std::cout<<"ERROR in position"<<i;
-            break;
-        }
+        sum += device_array[i];
     }
-    std::cout<<"SUCCESS\n";
-}
 
-template <typename type>
-void sum_on_host(type *A,type *B, type *C, long N, int iter_limit){
-    for(long i =0;i<N;i++){
-        C[i] = A[i] + iter_limit* B[i];
-    }
+    return sum;
 }
 
 template <typename type>
@@ -92,10 +76,10 @@ int main(int argc, char** argv){
     
     long values_num = static_cast<long>(pow(2, 29)) * 1.5;
     if (argc < 3) {
-        printf("Pass wished utilization in the first argument and iterations limit in the second argument\n");
+        printf("Pass wished utilization in the first argument and duration in seconds in the second argument\n");
     }
     int wished_util = atoi(argv[1]);
-    int iter_limit = atoi(argv[2]);
+    int duration = atoi(argv[2]);//duration in seconds
 
     ArrayHost<int> A_h (values_num);
     ArrayHost<int> B_h (values_num);
@@ -110,10 +94,6 @@ int main(int argc, char** argv){
     dim3 block(max_threads_for_block);
     dim3 grid ((values_num + max_threads_for_block - 1)/ max_threads_for_block);
 
-    double start_on_host = cpuSecond();
-    sum_on_host<int>(A_h.get_values(),B_h.get_values(),HostSum.get_values(),values_num, iter_limit);
-    double end_on_host = cpuSecond();
-
 
     std::cout << "Trying to allocate " << values_num * 3 * sizeof(int) / pow(10, 9) << " GB on device" << std::endl;
     ArrayDevice<int> A_d(values_num);
@@ -125,26 +105,32 @@ int main(int argc, char** argv){
     cudaDeviceSynchronize();
 
     std::cout << "Starting gpuload with utilization:" << wished_util << "%" << std::endl;
-    for (int iter = 0; iter < iter_limit; iter++) {
+    auto start = chrono::steady_clock::now();
+    typeof(start) endSleep;
+    do {
 
-        auto start = chrono::steady_clock::now();
+        auto startSum = chrono::steady_clock::now();
         sum_on_device <int> <<<grid,block>>>(A_d.get_values(),B_d.get_values(),A_d.get_values());
         cudaDeviceSynchronize();
-        auto end = chrono::steady_clock::now();
+        auto endSum = chrono::steady_clock::now();
 
 
-        auto ms = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+        auto ms = chrono::duration_cast<chrono::milliseconds>(endSum - startSum).count();
 
         double time_diff = static_cast<double>(100 - wished_util)/static_cast<double>(wished_util);
         int time_sleep = static_cast<int>(ms * time_diff);
-        auto start1 = chrono::steady_clock::now();
+        auto startSleep = chrono::steady_clock::now();
         std::this_thread::sleep_for(std::chrono::milliseconds(time_sleep));
-        auto end1 = chrono::steady_clock::now();
+        endSleep = chrono::steady_clock::now();
 
-//        std::cout << "Kernel time: " << ms << " , Sleep time: " << chrono::duration_cast<chrono::milliseconds>(end1 - start1).count() << std::endl;
-    }
+//        std::cout << "Kernel time: " << ms << " , Sleep time: "
+//        << chrono::duration_cast<chrono::milliseconds>(endSleep - startSleep).count() << std::endl
+//        << "Total sleep time: " << chrono::duration_cast<chrono::milliseconds>(endSleep - start).count() << std::endl;
+    } while (duration > chrono::duration_cast<chrono::milliseconds>(endSleep - start).count() / 1000);
 
     cudaMemcpy(Device_to_HostSum.get_values(),A_d.get_values(),A_h.get_size(),cudaMemcpyDeviceToHost);
 
-    checkResult(HostSum.get_values(),Device_to_HostSum.get_values(),values_num);
+    int sum = sumResult(Device_to_HostSum.get_values(),values_num);
+
+    return sum + 0 - sum; /* suppress unused variable warning */
 };

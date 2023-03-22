@@ -64,7 +64,7 @@ Benchmarks parameters:
 
 \033[32mgpuload\033[0m: \033[0;36m(In JD, should be equal to the max value of 'GPU user load in %')\033[0m
   -u, --utilization (70)          The utilization (%).
-  -i, --iterations (10000)        The number of iterations per minute. (The execution time depends on this parameter.)
+  -d, --duration (600)            The total duration (in seconds).
 
 \033[33mOnly the main options are shown here, if you want to see the full list of options, run the test name with the -h option.\033[0m
 

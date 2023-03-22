@@ -17,20 +17,10 @@ gpuload() {
       testOptions="70"
       util=70
   fi
-  if [[ $options =~ ((i|iterations) ([0-9]+)) ]]; then
+  if [[ $options =~ ((d|duration) ([0-9]+)) ]]; then
       testOptions=$testOptions" ${BASH_REMATCH[3]}"
   else
-      if [[ $util < 11 ]]; then
-        testOptions=$testOptions" 1000"
-      elif [[ $util < 21 ]]; then
-        testOptions=$testOptions" 2400"
-      elif [[ $util < 51 ]]; then
-        testOptions=$testOptions" 7000"
-      elif [[ $util < 91 ]]; then
-        testOptions=$testOptions" 10000"
-      else
-        testOptions=$testOptions" 50000"
-      fi
+      testOptions=$testOptions" 600"
   fi
   if [[ $options =~ ((h|help)) ]]; then
       testOptions=""
