@@ -44,7 +44,8 @@ Examples
     #runs only cpuload using 50% CPU usage for 15 minutes two times
     ./sbatch-jdc.sh cpuload='-u 50 -d 900' -n 2
     
-    #runs mpiib with default amount of passing data for 3 millions times without warmup and memfree with default parameters
+    #runs mpiib with default amount of passing data for 3 millions times
+    #without warmup and memfree with default parameters
     ./sbatch-jdc.sh mpiib='-x 0 -i 3000000' memfree
     
     #runs all benchmarks with help option
