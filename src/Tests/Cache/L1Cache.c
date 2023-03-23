@@ -56,7 +56,7 @@ int arraySum(int N, int *arr) {
 //    exit(1);
 //}
 
-void makeMiss(long long iterNum, int duration) {
+void makeMiss(int duration) {
     int l1_dcache_line_size = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
     int l1_dcache_size = sysconf(_SC_LEVEL1_DCACHE_SIZE);
 
@@ -99,13 +99,11 @@ void makeMiss(long long iterNum, int duration) {
     struct timespec mt1, mt2;
     clock_gettime(CLOCK_REALTIME, &mt1);
 
-    long long i;
-    int cur_min, key,
-            prev_key = N - 1;
+    int i, key, prev_key = N - 1;
     long long miss_count = 0;
-    long long time_spent;
-    int interval = 60;//in seconds
-    for (cur_min = 0; cur_min < duration; cur_min++) {
+    int time_spent;
+    int iterNum = 1000000;
+    do {
         for (i = 0; i < iterNum; i++) {
             key = getNewKey(prev_key, N, l1_dcache_line_size);
             A[key] = B[key] * C[key];
@@ -115,12 +113,8 @@ void makeMiss(long long iterNum, int duration) {
         }
         clock_gettime(CLOCK_REALTIME, &mt2);
         time_spent = mt2.tv_sec - mt1.tv_sec;
-        printf("Time spent: %lld s for %lld iterations\n", time_spent, iterNum);
-        if (time_spent < interval * (cur_min + 1)) {
-            printf("Sleep for %lld s\n", interval * (cur_min + 1) - time_spent);
-            sleep((interval * (cur_min + 1) - time_spent));
-        }
-    }
+    } while (time_spent < duration);
+    printf("Time spent: %d s\n", time_spent);
 
 //    clock_gettime(CLOCK_REALTIME, &mt2);
 //    time_spent = 1000000000 * (mt2.tv_sec - mt1.tv_sec) + (mt2.tv_nsec - mt1.tv_nsec);
@@ -142,23 +136,19 @@ void makeMiss(long long iterNum, int duration) {
 }
 
 void help() {
-    printf("The program generates L1 cache misses. Pass the number of iterations\n"
-           "per minute as the first argument (Each iteration equals 3 misses). The second\n"
-           "argument is the number of minutes to the program to work. And the third argument\n"
-           "is optional and stands for additional output.\n"
+    printf("The program generates L1 cache misses. Pass the number of seconds in the first argument to run.\n"
            "Execution:\n"
-           "./L1Cache {number of iterations per minute} {duration time in minutes}\n");
+           "./L1Cache {duration in seconds}\n");
 }
 
 int main(int argc, char *argv[]) {
-    if (argc < 3) {
+    if (argc < 2) {
         help();
         return 0;
     }
-    long long iterNum = atoll(argv[1]);
-    int duration = atoi(argv[2]);
+    int duration = atoi(argv[1]);
 
-    makeMiss(iterNum, duration);
+    makeMiss(duration);
 
     return 0;
 }

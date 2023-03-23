@@ -27,17 +27,13 @@ def main():
         return
     with open(resultFileName) as f:
         line = f.read()
-        minutes = re.findall("Time spent: \d+ s for \d+ iterations", line, re.MULTILINE)
-        sleeps = re.findall("Sleep for \d+ s", line, re.MULTILINE)
+        spentSeconds = re.findall("Time spent: (\d+) s", line, re.MULTILINE)
         res = re.findall("Expected total number of L1 cache misses: (\d+)", line, re.MULTILINE)
         if (res):
             print("Expected average number of l1 cache misses: "
-                  + str(round(int(res[len(res) - 1]) / len(minutes) / CoresNumber / 60))
+                  + str(round(int(res[len(res) - 1]) / int(spentSeconds[0]) / CoresNumber))
                   + " in job with ID "
-                  + resultFileName.replace("slurm-", "").replace(".out", "")
-                  + (" (The result may not be accurate because the desired "
-                     + "number of iterations cannot be completed in one minute)"
-                     if len(minutes) != len(sleeps) else ""))
+                  + resultFileName.replace("slurm-", "").replace(".out", ""))
             if ('--dndoof' not in sys.argv):
                 os.remove(resultFileName)
             return
