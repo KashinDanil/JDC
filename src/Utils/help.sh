@@ -55,7 +55,7 @@ Benchmarks parameters:
                                   messages, 100 for large messages)
   tiny                            Executes parameters -i 500000
   small                           Executes parameters -i 1000000
-  medium                          Executes parameters -i 2000000
+  medium (default)                Executes parameters -i 2000000
   large                           Executes parameters -i 3000000
 \033[33mAttention: This test can only be run on two nodes.\033[0m
 
