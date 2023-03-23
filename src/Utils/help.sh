@@ -57,8 +57,9 @@ Benchmarks parameters:
   small                           Executes parameters -i 1000000
   medium                          Executes parameters -i 2000000
   large                           Executes parameters -i 3000000
+\033[33mAttention: This test can only be run on two nodes.\033[0m
 
-\033[32ml1cache\033[0m: \033[0;36m(In JD, should be equal to the max value of 'L1 cache misses' multiplied by the number of seconds of work)\033[0m
+\033[32ml1cache\033[0m: \033[0;36m(In JD, should be equal to the average value of 'L1 cache misses')\033[0m
   -i, --iterations (1000000000)   The number of iterations per minute (Each iteration equals 3 misses).
   -d, --duration (600)            The number of seconds to the program to work.
 
