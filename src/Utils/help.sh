@@ -28,7 +28,6 @@ Note:
   The mpiib benchmark cannot use the -d option as it has no time limit.
   It transmits a certain amount of data through network a certain number of times
   and is independent of time.
-  The gpuload test also is independent of the -d option as it runs certain number of iterations.
 
 
 Benchmarks parameters:
@@ -73,7 +72,7 @@ Default benchmarks parameters:
   cpuload -u 100 -d 600 -v                            #uses 100% CPU usage for 10 minutes with verbose returns
   cpuloadavg -u 100 -d 600 -v -l 10                   #runs 10 processes loading the processor
   gpuload -u 70 -i 10000                              #uses 70% GPU usage for 10000 iterations
-  l1cache -i 1000000000 -d 600                        #runs 1 billion iterations every minute for 10 minutes
+  l1cache -d 600                                      #makes L1 cache misses for 10 minutes
   memfree -d 600 -s 'TOTAL_MEM_B / 600 / 50 / 4' -v   #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
   mpiib -m 16384:16384 medium -x 0                    #passes 16 bytes between two nodes 2 million times with no extra passes for warmup
   "
