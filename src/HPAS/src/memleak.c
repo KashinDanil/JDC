@@ -84,6 +84,9 @@ int memleak(int argc, char *argv[])
     hpas_sleep(start_time);
     time_t rawtime;
     struct tm *timeinfo;
+    FILE *fpipe;
+    char *command = "cat /proc/meminfo | grep -i MemFree";
+    char line[256];
     char *keep;
     long int j;
 
@@ -97,28 +100,33 @@ int memleak(int argc, char *argv[])
      * allocates the memory but without saving the address of the
      * allocated place
      */
-    long int mallocSize = size * sizeof(char);
-    long long usedMemory = 0;
     set_duration(duration);
     while (timer_flag) {
         hpas_sleep(period);
 
-        char *temp = malloc(mallocSize);
+        char *temp = malloc(size * sizeof(char));
         if (!temp){
             break;
             /* malloc will return NULL sooner or later, due to lack of memory */
         }
-        usedMemory += mallocSize;
 
         for (j = 0; j < size; j++){
             temp[j] = 'a';
         }
 
-        keep = temp;
-    }
+        if (verbose) {
+            if (!(fpipe = (FILE*) popen(command, "r"))){
+                perror("Problems with pipe");
+                exit(1);
+            }
+            while (fgets( line, sizeof line, fpipe)){
+                printf("%s", line);
+            }
+            printf("\n");
+            pclose(fpipe);
+        }
 
-    if (verbose) {
-        printf("UsedMemory: %lld B\n", usedMemory);
+        keep = temp;
     }
     time(&rawtime);
     timeinfo = localtime(&rawtime);
