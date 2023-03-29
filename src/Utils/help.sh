@@ -42,6 +42,7 @@ Benchmarks parameters:
 \033[32mmemfree\033[0m: \033[0;36m(In JD, should be equal to the min value of 'Free memory')\033[0m
   -s, --size (20M)                The size (in bytes) of the array to be allocated.
   -d, --duration (-1.0)           The total duration (in seconds), -1 for infinite.
+  -t, --start (120)              The time to wait (in seconds) before starting the anomaly and after finishing.
 \033[33mAttention: There is no upper limit on allocated memory, so make sure you don't run out of memory\033[0m
 
 \033[32mmpiib\033[0m: \033[0;36m(In JD, should be equal to the max value of 'MPI IB send/receive data')\033[0m
@@ -73,7 +74,7 @@ Default benchmarks parameters:
   cpuloadavg -u 100 -d 600 -v -l 10                   #runs 10 processes loading the processor
   gpuload -u 70 -i 10000                              #uses 70% GPU usage for 10000 iterations
   l1cache -d 600                                      #makes L1 cache misses for 10 minutes
-  memfree -d 600 -s 'TOTAL_MEM_B / 600 / 50 / 4' -v   #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
+  memfree -t 120 -d 600 -s 'TOTAL_MEM_B / 600 / 50 / 4' -v   #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
   mpiib -m 16384:16384 medium -x 0                    #passes 16 bytes between two nodes 2 million times with no extra passes for warmup
   "
 }

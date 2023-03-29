@@ -131,6 +131,21 @@ int memleak(int argc, char *argv[])
     time(&rawtime);
     timeinfo = localtime(&rawtime);
     printf("%sFinished leak.\n", asctime(timeinfo));
+
+    hpas_sleep(start_time);
+
+    if (verbose) {
+        if (!(fpipe = (FILE*) popen(command, "r"))){
+            perror("Problems with pipe");
+            exit(1);
+        }
+        while (fgets( line, sizeof line, fpipe)){
+            printf("%s", line);
+        }
+        printf("\n");
+        pclose(fpipe);
+    }
+
     return keep + 0 - keep; /* suppress unused variable warning */
     /* free the allocated memory by operating system itself after program exits */
 }
