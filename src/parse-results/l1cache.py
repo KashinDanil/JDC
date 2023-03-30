@@ -30,7 +30,7 @@ def main():
         spentSeconds = re.findall("Time spent: (\d+) s", line, re.MULTILINE)
         res = re.findall("Expected total number of L1 cache misses: (\d+)", line, re.MULTILINE)
         if (res):
-            print("Expected average number of l1 cache misses: "
+            print("Expected average number of L1 cache misses: "
                   + str(round(int(res[len(res) - 1]) / int(spentSeconds[0]) / CoresNumber))
                   + " in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))

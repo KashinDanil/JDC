@@ -17,7 +17,7 @@ def main():
         line = f.read()
         res = re.findall("MemFree:\s+(\d+) kB", line, re.MULTILINE)
         if (res):
-            print("Expected minimum free RAM memory: " + str(int(res[len(res) - 1]) * 1024) + " B in job with ID "
+            print("Expected min value of free memory: " + str(int(res[len(res) - 1]) * 1024) + " B in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
             if ('--dndoof' not in sys.argv):
                 os.remove(resultFileName)

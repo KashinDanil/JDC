@@ -17,7 +17,7 @@ def main():
         line = f.read()
         res = re.findall("Expected load average is (\d+)", line, re.MULTILINE)
         if (res):
-            print("Expected CPU load average: " + res[0] + " in job with ID "
+            print("Expected max CPU load average: " + res[0] + " in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
             if ('--dndoof' not in sys.argv):
                 os.remove(resultFileName)
