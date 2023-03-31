@@ -22,13 +22,13 @@ help() {
 
 
 jdc.sh parameters:
-  -h shows this message
-  -d duration time in seconds (This option is used for all benchmarks except those that are independent of time)
-Note:
+  -h, --help                      Shows this message
+  -d, --duration                  The total duration (in seconds) (This option is used for all benchmarks
+                                  except those that are independent of time)
+\033[33mNote:
   The mpiib benchmark cannot use the -d option as it has no time limit.
-  It transmits a certain amount of data through network a certain number of times
-  and is independent of time.
-
+  It transmits a certain amount of data through network a certain number of times and is independent of time.
+\033[0m
 
 Benchmarks parameters:
 \033[32mcpuload\033[0m: \033[0;36m(In JD, should be equal to the max value of 'CPU user load in %')\033[0m
@@ -42,7 +42,7 @@ Benchmarks parameters:
 \033[32mmemfree\033[0m: \033[0;36m(In JD, should be equal to the min value of 'Free memory')\033[0m
   -s, --size (20M)                The size (in bytes) of the array to be allocated.
   -d, --duration (-1.0)           The total duration (in seconds), -1 for infinite.
-  -t, --start (120)              The time to wait (in seconds) before starting the anomaly and after finishing.
+  -t, --start (120)               The time to wait (in seconds) before starting the anomaly and after finishing.
 \033[33mAttention: There is no upper limit on allocated memory, so make sure you don't run out of memory\033[0m
 
 \033[32mmpiib\033[0m: \033[0;36m(In JD, should be equal to the max value of 'MPI IB send/receive data')\033[0m

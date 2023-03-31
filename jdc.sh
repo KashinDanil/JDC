@@ -19,7 +19,7 @@ parameters=()
 benchmarks=()
 benchmarksCounter=0
 #common parameters used in all benchmarks (-d for duration)
-commonParamKeys=("-d")
+commonParamKeys=("-d", "--duration")
 commonParams=()
 while [ -n "$1" ]
 do
@@ -31,7 +31,7 @@ do
   fi
 
   #check if common parameters are used
-  if [[ " ${commonParamKeys[*]} " =~ " $1 " ]]; then
+  if [[ " ${commonParamKeys[*]} " =~ "$1" ]]; then
       commonParams+=("$1 $2")
       shift 2
       continue
