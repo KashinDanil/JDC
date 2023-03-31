@@ -59,9 +59,7 @@ Benchmarks parameters:
 \033[32mmpiib\033[0m: \033[0;36m(In JD, should be equal to the max value of 'MPI IB send/receive data')\033[0m
   -m, --message-size              [MIN:]MAX  set the minimum and/or the maximum message size to MIN and/or MAX
                                   bytes respectively. Examples:
-                                  -m 128      // min = default, max = 128
                                   -m 2:128    // min = 2, max = 128
-                                  -m 2:       // min = 2, max = default
   -i, --iterations ITER           set iterations per message size to ITER (default 1000 for small
                                   messages, 100 for large messages)
   tiny                            Executes parameters -i 500000
