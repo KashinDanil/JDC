@@ -24,10 +24,11 @@ To get help use parameter `-h` or `--help`
 Currently, available following benchmarks:
 1. cpuload - runs [NUMBER_OF_CORES_PER_NODE](https://github.com/KashinDanil/JDC/blob/3244eafabb43b89c17f47ffae34ac60257f25381/config.sh#L3) times [HPAS](https://github.com/peaclab/HPAS) cpuoccupy anomaly
 2. cpuloadavg - runs [HPAS](https://github.com/peaclab/HPAS) cpuoccupy anomaly
-3. memfree - runs [HPAS](https://github.com/peaclab/HPAS) memleak anomaly
-4. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark
+3. gpuload - runs custom-made test for loading GPU
+4. iobandwidth - runs [HPAS](https://github.com/peaclab/HPAS) iobandwidth anomaly
 5. l1cache - runs custom-made test for L1 cache misses
-6. gpuload - runs custom-made test for loading GPU
+6. memfree - runs [HPAS](https://github.com/peaclab/HPAS) memleak anomaly
+7. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark
 
 
 Examples

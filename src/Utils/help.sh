@@ -39,6 +39,17 @@ Benchmarks parameters:
   -l, --loadavg                   Integer of desired load average
   -d, --duration (-1.0)           The total duration (in seconds), -1 for infinite.
 
+\033[32mgpuload\033[0m: \033[0;36m(In JD, should be equal to the max value of 'GPU user load in %')\033[0m
+  -u, --utilization (70)          The utilization (%).
+  -d, --duration (600)            The total duration (in seconds).
+
+\033[32miobandwidth\033[0m: \033[0;36m(In JD, should be equal to the max value of 'Lustre read bytes')\033[0m
+  -s (1G)                         Block size (in bytes)
+  -d, --duration (600)            The total duration (in seconds).
+
+\033[32ml1cache\033[0m: \033[0;36m(In JD, should be equal to the average value of 'L1 cache misses')\033[0m
+  -d, --duration (600)            The number of seconds to the program to work.
+
 \033[32mmemfree\033[0m: \033[0;36m(In JD, should be equal to the min value of 'Free memory')\033[0m
   -s, --size (20M)                The size (in bytes) of the array to be allocated.
   -d, --duration (-1.0)           The total duration (in seconds), -1 for infinite.
@@ -59,22 +70,16 @@ Benchmarks parameters:
   large                           Executes parameters -i 3000000
 \033[33mAttention: This test can only be run on two nodes.\033[0m
 
-\033[32ml1cache\033[0m: \033[0;36m(In JD, should be equal to the average value of 'L1 cache misses')\033[0m
-  -d, --duration (600)            The number of seconds to the program to work.
-
-\033[32mgpuload\033[0m: \033[0;36m(In JD, should be equal to the max value of 'GPU user load in %')\033[0m
-  -u, --utilization (70)          The utilization (%).
-  -d, --duration (600)            The total duration (in seconds).
-
 \033[33mOnly the main options are shown here, if you want to see the full list of options, run the test name with the -h option.\033[0m
 
 
 Default benchmarks parameters:
-  cpuload -u 100 -d 600 -v                            #uses 100% CPU usage for 10 minutes with verbose returns
-  cpuloadavg -u 100 -d 600 -v -l 10                   #runs 10 processes loading the processor
-  gpuload -u 70 -i 10000                              #uses 70% GPU usage for 10000 iterations
-  l1cache -d 600                                      #makes L1 cache misses for 10 minutes
-  memfree -t 120 -d 600 -s 'TOTAL_MEM_B / 600 / 50 / 4' -v   #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
-  mpiib -m 16384:16384 medium -x 0                    #passes 16 bytes between two nodes 2 million times with no extra passes for warmup
+  cpuload -u 100 -d 600 -v                                  #uses 100% CPU usage for 10 minutes with verbose returns
+  cpuloadavg -u 100 -d 600 -v -l 10                         #runs 10 processes loading the processor
+  gpuload -u 70 -i 10000                                    #uses 70% GPU usage for 10000 iterations
+  iobandwidth -s 1G -d 600 -v                               #creates a 1G file and repeatable copies it for 10 minutes
+  l1cache -d 600                                            #makes L1 cache misses for 10 minutes
+  memfree -t 120 -d 600 -s 'TOTAL_MEM_B / 600 / 50 / 4' -v  #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
+  mpiib -m 16384:16384 medium -x 0                          #passes 16 bytes between two nodes 2 million times with no extra passes for warmup
   "
 }

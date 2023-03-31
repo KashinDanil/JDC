@@ -19,7 +19,7 @@ memfree() {
     options=$options" -v"
   fi
   if [[ ! "$options" == *"-t"* ]]; then
-    #show verbose data
+    #waiting time before and after running
     options=$options" -t 120"
   fi
   command="$SCRIPT_DIR/src/HPAS/bin/hpas memleak $options"
