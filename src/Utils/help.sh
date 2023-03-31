@@ -26,7 +26,7 @@ jdc.sh parameters:
   -d, --duration                  The total duration (in seconds) (This option is used for all benchmarks
                                   except those that are independent of time)
 \033[33mNote:
-  The mpiib benchmark cannot use the -d option as it has no time limit.
+  The mpiib benchmark cannot use the -d, --duration options as it has no time limit.
   It transmits a certain amount of data through network a certain number of times and is independent of time.
 \033[0m
 
