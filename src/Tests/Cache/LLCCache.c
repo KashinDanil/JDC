@@ -57,7 +57,7 @@ void makeMiss(int duration) {
         printf("LLC is 2\n");
     }
 
-    int N = llc_dcache_line_size * llc_dcache_size;
+    int N = llc_dcache_size * 3;
 
     int *B = (int *) malloc(sizeof(int) * N);
     genArray(N, B);
