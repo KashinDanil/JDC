@@ -1,10 +1,10 @@
 #!/bin/bash
 
 : "
-L1 cache test addresses to an array's element that is not in L1 cache in a cycle for a specific amount of time.
-API for the test (src/Tests/Cache/L1Cache.c) because it should be the simplest and cannot have hard arguments structure.
+LLC cache test addresses to an array's element that is not in LLC cache in a cycle for a specific amount of time.
+API for the test (src/Tests/Cache/LLCCache.c) because it should be the simplest and cannot have hard arguments structure.
 "
-l1cache() {
+llccache() {
   #get all function options
   local options=${@##*( )}
   local testOptions=""
@@ -17,7 +17,7 @@ l1cache() {
   if [[ $options =~ ((h|help)) ]]; then
       testOptions=""
   fi
-  command="$SCRIPT_DIR/src/Tests/Cache/L1Cache $testOptions"
+  command="$SCRIPT_DIR/src/Tests/Cache/LLCCache $testOptions"
 #  echo $command
   $command
 }

@@ -27,8 +27,9 @@ Currently, available following benchmarks:
 3. gpuload - runs custom-made test for loading GPU
 4. iobandwidth - runs [HPAS](https://github.com/peaclab/HPAS) iobandwidth anomaly
 5. l1cache - runs custom-made test for L1 cache misses
-6. memfree - runs [HPAS](https://github.com/peaclab/HPAS) memleak anomaly
-7. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark
+6. llccache - runs custom-made test for last level cache misses
+7. memfree - runs [HPAS](https://github.com/peaclab/HPAS) memleak anomaly
+8. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark
 
 
 Examples

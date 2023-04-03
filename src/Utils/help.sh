@@ -50,6 +50,9 @@ Benchmarks parameters:
 \033[32ml1cache\033[0m: \033[0;36m(In JD, should be equal to the average value of 'L1 cache misses')\033[0m
   -d, --duration (600)            The number of seconds to the program to work.
 
+\033[32mllccache\033[0m: \033[0;36m(In JD, should be equal to the average value of 'Last level cache misses')\033[0m
+  -d, --duration (600)            The number of seconds to the program to work.
+
 \033[32mmemfree\033[0m: \033[0;36m(In JD, should be equal to the min value of 'Free memory')\033[0m
   -s, --size (20M)                The size (in bytes) of the array to be allocated.
   -d, --duration (-1.0)           The total duration (in seconds), -1 for infinite.
@@ -77,6 +80,7 @@ Default benchmarks parameters:
   gpuload -u 70 -i 10000                                    #uses 70% GPU usage for 10000 iterations
   iobandwidth -s 1G -d 600 -v                               #creates a 1G file and repeatable copies it for 10 minutes
   l1cache -d 600                                            #makes L1 cache misses for 10 minutes
+  llccache -d 600                                           #makes last level cache misses for 10 minutes
   memfree -t 120 -d 600 -s 'TOTAL_MEM_B / 600 / 50 / 4' -v  #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
   mpiib -m 16384:16384 medium -x 0                          #passes 16 bytes between two nodes 2 million times with no extra passes for warmup
   "
