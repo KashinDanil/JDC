@@ -11,3 +11,6 @@ Cache:
 
 GPU:
 	chmod -R 777 src/Tests/GPU; cd src/Tests/GPU; make; cd ../../..;
+
+MPI:
+	chmod -R 777 src/Tests/MPI; cd src/Tests/MPI; make; cd ../../..;

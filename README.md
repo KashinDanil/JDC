@@ -30,6 +30,7 @@ Currently, available following benchmarks:
 6. llccache - runs custom-made test for last level cache misses
 7. memfree - runs [HPAS](https://github.com/peaclab/HPAS) memleak anomaly
 8. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark
+9. mpipacks - runs custom-made test for number of MPI IB send/receive packets
 
 
 Examples

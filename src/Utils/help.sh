@@ -71,6 +71,9 @@ Benchmarks parameters:
   large                           Executes parameters -i 3000000
 \033[33mAttention: This test can only be run on two nodes.\033[0m
 
+\033[32mmpipacks\033[0m: \033[0;36m(In JD, should be equal to the average value of 'MPI IB send/receive packets')\033[0m
+  -d, --duration (600)            The number of seconds to the program to work.
+
 \033[33mOnly the main options are shown here, if you want to see the full list of options, run the test name with the -h option.\033[0m
 
 
@@ -83,5 +86,6 @@ Default benchmarks parameters:
   llccache -d 600                                           #makes last level cache misses for 10 minutes
   memfree -t 120 -d 600 -s 'TOTAL_MEM_B / 600 / 50 / 4' -v  #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
   mpiib -m 16384:16384 medium -x 0                          #passes 16 bytes between two nodes 2 million times with no extra passes for warmup
+  mpipacks -d 600                                         #sequentially passes 1 bytes between two nodes until the time is out
   "
 }
