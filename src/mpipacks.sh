@@ -17,7 +17,7 @@ mpipacks() {
   if [[ $options =~ ((h|help)) ]]; then
       testOptions=""
   fi
-  command="$SCRIPT_DIR/src/Tests/MPI/mpipackets $testOptions"
+  command="$SCRIPT_DIR/src/Tests/MPI/mpipacks $testOptions"
 #  echo $command
   $command
 }
