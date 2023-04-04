@@ -1,4 +1,4 @@
-all: HPAS OSU Cache GPU
+all: HPAS OSU Cache GPU MPI
 
 HPAS:
 	chmod -R 777 src/HPAS; cd src/HPAS; ./autogen.sh; ./configure --prefix=$PWD; make; make install; cd ../..;
