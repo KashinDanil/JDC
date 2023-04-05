@@ -2,6 +2,12 @@ By default, configurations are set for supercomputer Lomonosov-2
 
 If you want to change it replace the values of the corresponding variables in `config.sh`
 
+Prerequisites (There are presented versions of modules on which JDC works properly):
+* mpich/3.4.2-gcc9
+* gcc/9.1
+* openmpi/4.1.1-icc
+* cudatoolkit/8.0
+* cuda/10.1
 
 Installation
 ------------
