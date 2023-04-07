@@ -5,12 +5,14 @@ CPU benchmark that loads cpu using cpuoccupy anomaly in HPAS
 '
 cpuloadavg() {
   cpuloadavgCall() {
-    for ((i = 0 ; i < $loadAvg - 1 ; i++)); do
-#        echo $i" $@ &"
-        $@ &
-      done
-#      echo $((loadAvg-1))" $@"
-      $@
+    for ((i = 0 ; i < $loadAvg ; i++)); do
+#      echo $i" $@ &"
+      $@ &
+      pids[$i]=$!
+    done
+    for ((i = 0 ; i < NUMBER_OF_CORES_PER_NODE ; i++)); do
+        wait ${pids[$i]}
+    done
   }
 
   #get all function options
