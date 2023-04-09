@@ -15,11 +15,13 @@ def main():
         return
     with open(resultFileName) as f:
         line = f.read()
-        res = re.findall("(\d+) bytes \(\d+ MB\) copied, [\d.]+ s, \d+ MB/s", line, re.MULTILINE)
-        res = [int(numeric_string) for numeric_string in res]
+        res = re.findall("Disk writing speed: (\d+\.\d{2}) b/s", line, re.MULTILINE)
+        res = [float(numeric_string) for numeric_string in res]
         if (res):
-            print("Expected max Lustre read bytes: " + str(max(res)) + " B in job with ID "
+            print("Expected average disk write: " + str(round(sum(res) / len(res), 2)) + " B/s in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
+            # print("Expected max disk write: " + str(max(res)) + " B/s in job with ID "
+            #       + resultFileName.replace("slurm-", "").replace(".out", ""))
             if ('--dndoof' not in sys.argv):
                 os.remove(resultFileName)
             return

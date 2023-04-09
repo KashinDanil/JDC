@@ -39,12 +39,16 @@ Benchmarks parameters:
   -l, --loadavg                   Integer of desired load average
   -d, --duration (-1.0)           The total duration (in seconds), -1 for infinite.
 
+\033[32mdiskread\033[0m: \033[0;36m(In JD, should be equal to the average value of 'Lustre read bytes')\033[0m
+  -d, --duration (600)            The total duration (in seconds).
+  -l (.)                          Location of output folder
+
+\033[32mdiskwrite\033[0m: \033[0;36m(In JD, should be equal to the average value of 'Lustre write bytes')\033[0m
+  -d, --duration (600)            The total duration (in seconds).
+  -l (.)                          Location of output folder
+
 \033[32mgpuload\033[0m: \033[0;36m(In JD, should be equal to the max value of 'GPU user load in %')\033[0m
   -u, --utilization (70)          The utilization (%).
-  -d, --duration (600)            The total duration (in seconds).
-
-\033[32miobandwidth\033[0m: \033[0;36m(In JD, should be equal to the max value of 'Lustre read bytes')\033[0m
-  -s (1G)                         Block size (in bytes)
   -d, --duration (600)            The total duration (in seconds).
 
 \033[32ml1cache\033[0m: \033[0;36m(In JD, should be equal to the average value of 'L1 cache misses')\033[0m
@@ -80,12 +84,13 @@ Benchmarks parameters:
 Default benchmarks parameters:
   cpuload -u 100 -d 600 -v                                  #uses 100% CPU usage for 10 minutes with verbose returns
   cpuloadavg -u 100 -d 600 -v -l 10                         #runs 10 processes loading the processor
+  diskread -d 600                                           #measures disk read speed for 10 minutes
+  diskwrite -d 600                                          #measures disk write speed for 10 minutes
   gpuload -u 70 -i 10000                                    #uses 70% GPU usage for 10000 iterations
-  iobandwidth -s 1G -d 600 -v                               #creates a 1G file and repeatable copies it for 10 minutes
   l1cache -d 600                                            #makes L1 cache misses for 10 minutes
   llccache -d 600                                           #makes last level cache misses for 10 minutes
   memfree -t 120 -d 600 -s 'TOTAL_MEM_B / 600 / 50 / 4' -v  #uses 'TOTAL_MEM_B / 600 / 5 / 4' bytes for 10 minutes
   mpiib -m 16384:16384 medium -x 0                          #passes 16 bytes between two nodes 2 million times with no extra passes for warmup
-  mpipacks -d 600                                         #sequentially passes 1 bytes between two nodes until the time is out
+  mpipacks -d 600                                           #sequentially passes 1 bytes between two nodes until the time is out
   "
 }

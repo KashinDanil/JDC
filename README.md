@@ -3,17 +3,17 @@ By default, configurations are set for supercomputer Lomonosov-2
 If you want to change it replace the values of the corresponding variables in `config.sh`
 
 Prerequisites (There are presented versions of modules on which JDC works properly):
-* mpich/3.4.2-gcc9
-* gcc/9.1
-* openmpi/4.1.1-icc
-* cudatoolkit/8.0
-* cuda/10.1
+* mpich/3.4.2-gcc9 (Used to compile the mpiib and mpipacks benchmarks)
+* gcc/9.1 (Used to compile most of the benchmarks)
+* openmpi/4.1.1-icc (Used to compile the mpiib and mpipacks benchmarks)
+* cudatoolkit/8.0 (Used to compile the mpiib benchmark)
+* cuda/10.1 (Used to compile the gpuload benchmark)
 
 Installation
 ------------
 On Lomonosov-2, you will need to use the following commands to get necessary modules:
 
-    module add openmpi/4.1.1-icc;module add cuda/10.1
+    module add openmpi/4.1.1-icc cuda/10.1
 
 To compile all tests, use the command:
 
@@ -30,13 +30,14 @@ To get help use parameter `-h` or `--help`
 Currently, available following benchmarks:
 1. cpuload - runs [NUMBER_OF_CORES_PER_NODE](https://github.com/KashinDanil/JDC/blob/3244eafabb43b89c17f47ffae34ac60257f25381/config.sh#L3) times [HPAS](https://github.com/peaclab/HPAS) cpuoccupy anomaly
 2. cpuloadavg - runs [HPAS](https://github.com/peaclab/HPAS) cpuoccupy anomaly
-3. gpuload - runs custom-made test for loading GPU
-4. iobandwidth - runs [HPAS](https://github.com/peaclab/HPAS) iobandwidth anomaly
-5. l1cache - runs custom-made test for L1 cache misses
-6. llccache - runs custom-made test for last level cache misses
-7. memfree - runs [HPAS](https://github.com/peaclab/HPAS) memleak anomaly
-8. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark
-9. mpipacks - runs custom-made test for number of MPI IB send/receive packets
+3. diskread - runs custom-made test for disk read speed
+4. diskwrite - runs custom-made test for disk write speed
+5. gpuload - runs custom-made test for loading GPU
+6. l1cache - runs custom-made test for L1 cache misses
+7. llccache - runs custom-made test for last level cache misses
+8. memfree - runs [HPAS](https://github.com/peaclab/HPAS) memleak anomaly
+9. mpiib - runs [osu](https://mvapich.cse.ohio-state.edu/benchmarks/) osu_bw benchmark
+10. mpipacks - runs custom-made test for number of MPI IB send/receive packets
 
 
 Examples
