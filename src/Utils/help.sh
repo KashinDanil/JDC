@@ -47,7 +47,7 @@ Benchmarks parameters:
   -d, --duration (600)            The total duration (in seconds).
   -l (.)                          Location of output folder
 
-\033[32mgpuload\033[0m: \033[0;36m(In JD, should be equal to the max value of 'GPU user load in %')\033[0m
+\033[32mgpuload\033[0m: \033[0;36m(In JD, should be equal to the average value of 'GPU user load in %')\033[0m
   -u, --utilization (70)          The utilization (%).
   -d, --duration (600)            The total duration (in seconds).
 

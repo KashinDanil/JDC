@@ -17,7 +17,7 @@ def main():
         line = f.read()
         res = re.findall("Starting gpuload with utilization:(\d+)%", line, re.MULTILINE)
         if (res):
-            print("Expected max GPU usage: " + res[0] + " % in job with ID "
+            print("Expected average GPU usage: " + res[0] + " % in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
             if ('--dndoof' not in sys.argv):
                 os.remove(resultFileName)

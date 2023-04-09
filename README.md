@@ -9,7 +9,7 @@ Prerequisites (There are presented versions of modules on which JDC works proper
 
 Installation
 ------------
-On Lomonosov-2, you will need to use the following commands to get necessary modules:
+On Lomonosov-2, you will need to use the following command to get necessary modules:
 
     module add openmpi/4.1.1-icc cuda/10.1
 
