@@ -19,7 +19,7 @@ def main():
         if (res):
             print("Expected max network bandwidth: "
                   + str(float(res[len(res) - 1][0] if type(res[len(res) - 1]) is tuple else res[len(res) - 1]) * 1000000)
-                  + " MB/s in job with ID "
+                  + " B/s in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
             if ('--dndoof' not in sys.argv):
                 os.remove(resultFileName)
