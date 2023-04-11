@@ -17,8 +17,11 @@ def main():
         line = f.read()
         res = re.findall("Disk reading speed: (\d+\.\d{2}) b/s", line, re.MULTILINE)
         res = [float(numeric_string) for numeric_string in res]
+        resAvg = re.findall("Average disk reading speed: (\d+\.\d{2}) b/s", line, re.MULTILINE)
         if (res):
-            print("Expected average disk reading: " + str(round(sum(res) / len(res), 2)) + " B/s in job with ID "
+            print("Expected average disk reading: " +
+                  str((round(sum(res) / len(res), 2) + float(resAvg[len(resAvg) - 1])) / 2)
+                  + " B/s in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
             # print("Expected max disk reading: " + str(max(res)) + " B/s in job with ID "
             #       + resultFileName.replace("slurm-", "").replace(".out", ""))

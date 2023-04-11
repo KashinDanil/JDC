@@ -19,19 +19,24 @@ def diskSpeedMeasure(duration, dirname):
     filesize = 512 * 1024 * 1024  # in bytes
     filename = os.path.join(dirname, 'tmpWriteTest' + str(random.randint(-100000000, -1)))
     start = time.time()
+    totalSize = 0
     while True:
         startMeasure = time.time()
         try:
             writeToFile(filename, filesize)
+            totalSize += filesize
         except:
             raise
         diff = time.time() - startMeasure
         os.remove(filename)
         speed = filesize / diff
-        print("Disk writing speed: %.2f b/s" % speed, "(", filesize, "/", diff, ")")
+        # print("Disk writing speed: %.2f b/s" % speed, "(", filesize, "/", diff, ")")
         if (speed > filesize):
-            filesize = int(math.ceil(speed / 104857600.0)) * 104857600 #round up to the nearest hundred MB
+            filesize = int(math.ceil(speed / 104857600.0)) * 104857600  # round up to the nearest hundred MB
         if (time.time() - start) >= duration: break
+    diff = time.time() - start
+    speed = totalSize / diff
+    print("Average disk writing speed: %.2f b/s" % speed, "(", totalSize, "/", diff, ")")
 
 
 def help():

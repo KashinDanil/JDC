@@ -14,6 +14,7 @@ def writeToFile(filename, mysizeMB):
     f.write(mystring)
     f.close()
 
+
 def readFromFile(filename, mysizeMB):
     try:
         f = open(filename, 'r')
@@ -26,13 +27,15 @@ def readFromFile(filename, mysizeMB):
 
 
 def diskSpeedMeasure(duration, dirname):
-    filesize = 1000 * 1024 * 1024 #in bytes
+    filesize = 1000 * 1024 * 1024  # in bytes
     filename = os.path.join(dirname, 'tmpReadTest' + str(random.randint(-100000000, -1)))
     speed = filesize + 1
     start = time.time()
+    totalSize = 0
     while True:
         if (speed >= filesize):
-            filesize = int(math.ceil(speed / 104857600.0)) * 104857600 #round up to the nearest hundred MB
+            # round up to the nearest Gigabyte
+            filesize = int(math.ceil(speed / (1024 * 1024 * 1024.0))) * (1024 * 1024 * 1024)
             try:
                 writeToFile(filename, filesize)
             except:
@@ -42,6 +45,7 @@ def diskSpeedMeasure(duration, dirname):
         readBytes = 0
         try:
             readBytes = readFromFile(filename, filesize)
+            totalSize += filesize
         except:
             raise
         diff = time.time() - startMeasure
@@ -51,6 +55,9 @@ def diskSpeedMeasure(duration, dirname):
         if (time.time() - start) >= duration: break
 
     os.remove(filename)
+    diff = time.time() - start
+    speed = totalSize / diff
+    print("Average disk reading speed: %.2f b/s" % speed, "(", totalSize, "/", diff, ")")
 
 
 def help():
