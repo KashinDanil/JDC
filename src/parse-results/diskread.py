@@ -16,7 +16,7 @@ def main():
     with open(resultFileName) as f:
         line = f.read()
         resAvg = re.findall("Average disk reading speed: (\d+\.\d{2}) b/s", line, re.MULTILINE)
-        if (res):
+        if (resAvg):
             print("Expected average disk reading: " + resAvg[len(resAvg) - 1]
                   + " B/s in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
