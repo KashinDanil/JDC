@@ -58,3 +58,9 @@ Examples
     
     #runs all benchmarks with help option
     ./sbatch-jdc.sh cpuload='-h' memfree='-h' mpiib='-h'
+
+
+License
+-------
+
+JDC is licensed under the [BSD 3-Clause license](https://github.com/KashinDanil/JDC/blob/master/LICENSE).
