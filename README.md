@@ -1,6 +1,6 @@
 By default, configurations are set for supercomputer Lomonosov-2
 
-If you want to change it replace the values of the corresponding variables in `config.sh`
+If you want to change it replace the values of the corresponding variables in [`config.sh`](https://github.com/KashinDanil/JDC/blob/master/config.sh)
 
 Prerequisites (There are presented versions of modules on which JDC works properly):
 * gcc/9.1 (To compile most of the benchmarks)
@@ -19,8 +19,8 @@ To compile all tests, use the command:
 
 Usage
 ------------
-To run benchmarks directly use `jdc.sh` script.
-To run benchmarks using sbatch use `sbatch-jdc.sh` script.
+To run benchmarks directly use [`jdc.sh`](https://github.com/KashinDanil/JDC/blob/master/jdc.sh) script.
+To run benchmarks using sbatch use [`sbatch-jdc.sh`](https://github.com/KashinDanil/JDC/blob/master/sbatch-jdc.sh) script.
 
 To get help use parameter `-h` or `--help`
 
@@ -59,6 +59,26 @@ Examples
     #runs all benchmarks with help option
     ./sbatch-jdc.sh cpuload='-h' memfree='-h' mpiib='-h'
 
+
+
+Creating new benchmark
+------------
+In order to create a new test, you must use the templates from
+[the appropriate directory](https://github.com/KashinDanil/JDC/blob/master/templates/).
+The following steps will help you achieve this goal:
+1. Copy and paste the
+[`newbenchmarkname.sh`](https://github.com/KashinDanil/JDC/blob/master/templates/newbenchmarkname.sh) file in
+[src](https://github.com/KashinDanil/JDC/blob/master/src) directory to create a new benchmark;
+2. Replace "newbenchmarkname" in the filename and in the function name in the file with the actual name of
+the new benchmark;
+3. Change the script inside the function;
+4. To be able to easily parse results, copy and paste the
+[`newbenchmarkname.py`](https://github.com/KashinDanil/JDC/blob/master/templates/newbenchmarkname.py) file in
+[src/parse-results](https://github.com/KashinDanil/JDC/blob/master/src/parse-results/) directory;
+5. Replace the "newbenchmarkname" in filename with the same name of the benchmark that was used in step 2;
+6. Change the regular expression and the output text of the result inside the file.
+
+NOTE: if the test uses MPI, then the word "mpi" must be used in the name of the test.  
 
 License
 -------
