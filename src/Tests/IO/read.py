@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
-import time, os, sys, math, random
+import time
+import os
+import sys
+import random
 
 
 def writeToFile(filename, mysizeMB):
@@ -10,16 +13,18 @@ def writeToFile(filename, mysizeMB):
         f = open(filename, 'w')
     except:
         raise
+    # generate a string to write to a temporary file
     mystring = mystring * writeloops
     f.write(mystring)
     f.close()
 
 
-def readFromFile(filename, mysizeMB):
+def readFromFile(filename):
     try:
         f = open(filename, 'r')
     except:
         raise
+    # read whole file
     str = f.read()
     f.close()
 
@@ -29,7 +34,7 @@ def readFromFile(filename, mysizeMB):
 def diskSpeedMeasure(duration, dirname):
     filesize = 1024 * 1024 * 1024  # in bytes
     filename = os.path.join(dirname, 'tmpReadTest' + str(random.randint(-100000000, -1)))
-    speed = filesize + 1
+    # set start time
     start = time.time()
     totalSize = 0
     try:
@@ -37,19 +42,15 @@ def diskSpeedMeasure(duration, dirname):
     except:
         raise
     while True:
-        startMeasure = time.time()
-        readBytes = 0
         try:
-            readBytes = readFromFile(filename, filesize)
+            readFromFile(filename)
             totalSize += filesize
         except:
             raise
-        diff = time.time() - startMeasure
-        # print("Have read " + str(readBytes) + " bytes")
-        speed = filesize / diff
-        # print("Disk reading speed: %.2f b/s" % speed, "(", filesize, "/", diff, ")")
+        # check if the time has elapsed
         if (time.time() - start) >= duration: break
 
+    # remove temp file
     os.remove(filename)
     diff = time.time() - start
     speed = totalSize / diff
@@ -64,6 +65,7 @@ def help():
 
 if __name__ == "__main__":
     duration = 600
+    # default temp dir is current dir
     dirname = os.getcwd()
     if len(sys.argv) >= 2:
         duration = int(sys.argv[1])

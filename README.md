@@ -26,7 +26,7 @@ To get help use parameter `-h` or `--help`
 
 
 Currently, available following benchmarks:
-1. cpuload - runs [NUMBER_OF_CORES_PER_NODE](https://github.com/KashinDanil/JDC/blob/3244eafabb43b89c17f47ffae34ac60257f25381/config.sh#L3) times [HPAS](https://github.com/peaclab/HPAS) cpuoccupy anomaly
+1. cpuload - runs [NUMBER_OF_CORES_PER_NODE](https://github.com/KashinDanil/JDC/blob/master/config.sh#L3) times [HPAS](https://github.com/peaclab/HPAS) cpuoccupy anomaly
 2. cpuloadavg - runs [HPAS](https://github.com/peaclab/HPAS) cpuoccupy anomaly
 3. diskread - runs custom-made test for disk read speed
 4. diskwrite - runs custom-made test for disk write speed

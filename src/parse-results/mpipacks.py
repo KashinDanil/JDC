@@ -10,18 +10,21 @@ def main():
         return
 
     resultFileName = sys.argv[1]
+    # check if the path exists
     if (not os.path.isfile(resultFileName)):
         print("File " + resultFileName + " is not exists.")
         return
     with open(resultFileName) as f:
         line = f.read()
         spentSeconds = re.findall("Time spent: (\d+) s", line, re.MULTILINE)
+        # find results by matching regular expression
         res = re.findall("Expected total number of sent packets: (\d+)", line, re.MULTILINE)
         if (res):
             print("Expected average number of MPI IB send/receive packets: "
                   + str(round(int(res[len(res) - 1]) / int(spentSeconds[0]) * 2))
                   + " in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
+            # delete output file if not needed
             if ('--dndoof' not in sys.argv):
                 os.remove(resultFileName)
             return

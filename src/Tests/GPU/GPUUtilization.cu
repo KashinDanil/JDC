@@ -123,9 +123,6 @@ int main(int argc, char** argv){
         std::this_thread::sleep_for(std::chrono::milliseconds(time_sleep));
         endSleep = chrono::steady_clock::now();
 
-//        std::cout << "Kernel time: " << ms << " , Sleep time: "
-//        << chrono::duration_cast<chrono::milliseconds>(endSleep - startSleep).count() << std::endl
-//        << "Total sleep time: " << chrono::duration_cast<chrono::milliseconds>(endSleep - start).count() << std::endl;
     } while (duration > chrono::duration_cast<chrono::milliseconds>(endSleep - start).count() / 1000);
 
     cudaMemcpy(Device_to_HostSum.get_values(),A_d.get_values(),A_h.get_size(),cudaMemcpyDeviceToHost);

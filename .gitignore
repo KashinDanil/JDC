@@ -95,5 +95,7 @@ src/HPAS/*.log
 src/HPAS/__pycache__/
 
 src/Tests/Cache/L1Cache
+src/Tests/Cache/LLCCache
+src/Tests/GPU/GPUUtilization
 
 *.out

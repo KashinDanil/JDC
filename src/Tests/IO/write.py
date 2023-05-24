@@ -1,23 +1,29 @@
 #!/usr/bin/env python
 
-import time, os, sys, math, random
+import time
+import os
+import sys
+import math
+import random
 
 
 def writeToFile(filename, mysizeMB):
-    mystr = "x"
-    writeloops = int(mysizeMB / len(mystr))
+    mystring = "x"
+    writeloops = int(mysizeMB / len(mystring))
     try:
         f = open(filename, 'w')
     except:
         raise
-    mystr = mystr * writeloops
-    f.write(mystr)
+    # generate a string to write to a temporary file
+    mystring = mystring * writeloops
+    f.write(mystring)
     f.close()
 
 
 def diskSpeedMeasure(duration, dirname):
     filesize = 512 * 1024 * 1024  # in bytes
     filename = os.path.join(dirname, 'tmpWriteTest' + str(random.randint(-100000000, -1)))
+    # set start time
     start = time.time()
     totalSize = 0
     while True:
@@ -28,11 +34,12 @@ def diskSpeedMeasure(duration, dirname):
         except:
             raise
         diff = time.time() - startMeasure
+        # remove temp file
         os.remove(filename)
         speed = filesize / diff
-        # print("Disk writing speed: %.2f b/s" % speed, "(", filesize, "/", diff, ")")
         if (speed > filesize):
             filesize = int(math.ceil(speed / 104857600.0)) * 104857600  # round up to the nearest hundred MB
+        # check if the time has elapsed
         if (time.time() - start) >= duration: break
     diff = time.time() - start
     speed = totalSize / diff
@@ -47,6 +54,7 @@ def help():
 
 if __name__ == "__main__":
     duration = 600
+    # default temp dir is current dir
     dirname = os.getcwd()
     if len(sys.argv) >= 2:
         duration = int(sys.argv[1])

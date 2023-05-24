@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 #import function to get available benchmarks
 . "$SCRIPT_DIR/src/Utils/getAvailableBenchmarks.sh"
@@ -8,74 +8,77 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 . "$SCRIPT_DIR/src/Utils/help.sh"
 . "$SCRIPT_DIR/src/Utils/sbatchHelp.sh"
 
+#get all available benchmarks
 availableBenchmarks=$(getAvailableBenchmarks)
 
-resultFileName="sbatch-jdc-$(($(date +%s%N)/1000000)).out"
+#set default output filename
+resultFileName="sbatch-jdc-$(($(date +%s%N) / 1000000)).out"
 additionalParseParams=''
 
 sbatchParameters=''
-sbatchScript='run' #use run as default script for benchmarks
+#use 'run' as default script for sequential benchmarks
+sbatchScript='run'
 sbatchMPIParameters=''
-sbatchMPIScript='ompi' #use run as default script for mpi benchmarks
+#use 'ompi' as default script for mpi benchmarks
+sbatchMPIScript='ompi'
 numberOfIterations=1
 
 benchmarks=()
 
 commonParams=()
-while [ -n "$1" ]
-do
+while [ -n "$1" ]; do
+  #  split param by equals sign
   param=$1
   key=${param%%=*}
   value=${param#*=}
 
   #set the value empty if it was not set by an equal sign
-  if [[ $key = $value ]]; then
+  if [[ $key == $value ]]; then
     value=''
   fi
 
-  if [[ $param = "-h" ]] || [[ $param = "--help" ]]; then
+  if [[ $param == "-h" ]] || [[ $param == "--help" ]]; then
     help
     sbatchHelp
     exit 0
   fi
 
-  if [[ $key = "--sbatch-params" ]]; then
+  if [[ $key == "--sbatch-params" ]]; then
     sbatchParameters=$value
     shift
     continue
   fi
-  if [[ $key = "--sbatch-script" ]]; then
+  if [[ $key == "--sbatch-script" ]]; then
     sbatchScript=$value
     shift
     continue
   fi
-  if [[ $key = "--sbatch-mpi-params" ]]; then
+  if [[ $key == "--sbatch-mpi-params" ]]; then
     sbatchMPIParameters=$value
     shift
     continue
   fi
-  if [[ $key = "--sbatch-mpi-script" ]]; then
+  if [[ $key == "--sbatch-mpi-script" ]]; then
     sbatchMPIScript=$value
     shift
     continue
   fi
-  if [[ $key = "--result-file" ]]; then
+  if [[ $key == "--result-file" ]]; then
     resultFileName=$value
     shift
     continue
   fi
-  if [[ $key = "--dndoof" ]]; then
+  if [[ $key == "--dndoof" ]]; then
     additionalParseParams=$additionalParseParams" --dndoof"
     shift
     continue
   fi
-  if [[ $key = "-n" ]]; then
-    if [[ $value != "" ]]
-    then
+  if [[ $key == "-n" ]]; then
+    if [[ $value != "" ]]; then
       numberOfIterations=$value
     else
       re='^[0-9]+$'
-      if ! [[ $2 =~ $re ]] ; then
+      if ! [[ $2 =~ $re ]]; then
         echo "Specify the number of iterations after using -n flag"
         exit
       else
@@ -116,7 +119,7 @@ fi
 #if there is no benchmarks chosen, use them all
 if [ "${#benchmarks[@]}" -eq "0" ]; then
   echo "Use all benchmarks: $availableBenchmarks"
-  IFS=' ' read -r -a benchmarks <<< $availableBenchmarks
+  IFS=' ' read -r -a benchmarks <<<$availableBenchmarks
   benchmarksCounter=${#benchmarks[@]}
 fi
 
@@ -124,8 +127,7 @@ sleepTime=60
 parseResults=''
 jobIds=()
 for ((i = 0; i < numberOfIterations; i++)); do
-  for benchmark in "${benchmarks[@]}"
-  do
+  for benchmark in "${benchmarks[@]}"; do
     key=${benchmark%%=*}
     if [[ $key == *"mpi"* ]]; then
       #use mpi params to mpi benchmark
@@ -136,24 +138,24 @@ for ((i = 0; i < numberOfIterations; i++)); do
     fi
 
     repeat=0
-    while : ; do
-      if (( repeat == 0 )); then
+    while :; do
+      if ((repeat == 0)); then
         echo "$command '${benchmark}' ${commonParams[@]}"
       fi
       res=$($command "${benchmark}" ${commonParams[@]} 2>&1 2>&1)
       if [[ "$res" != *"Submitted batch job"* ]]; then
-        repeat=$((repeat+1))
-        if (( repeat > 1 )); then
-            echo -en "\r\033[1K"
+        repeat=$((repeat + 1))
+        if ((repeat > 1)); then
+          echo -en "\r\033[1K"
         fi
         echo -en "\033[0;33m"
-        printf "%${repeat}s" |sed 's/ /*/g'
+        printf "%${repeat}s" | sed 's/ /*/g'
         echo -en " Was not able to submit a batch job. Waiting $((sleepTime * repeat)) seconds "
-        printf "%${repeat}s" |sed 's/ /*/g'
+        printf "%${repeat}s" | sed 's/ /*/g'
         echo -en "\033[0m"
         sleep $sleepTime
       else
-        if (( repeat > 0 )); then
+        if ((repeat > 0)); then
           echo ""
         fi
         echo $res
@@ -169,21 +171,21 @@ done
 
 minNumberOfLines=1
 repeat=0
-while : ; do
+while :; do
   queue=$(squeue -j $(printf ",%s" "${jobIds[@]}"))
   if [[ $(echo "$queue" | wc -l) != $minNumberOfLines ]]; then
-    repeat=$((repeat+1))
-    if (( repeat > 1 )); then
-        echo -en "\r\033[1K"
+    repeat=$((repeat + 1))
+    if ((repeat > 1)); then
+      echo -en "\r\033[1K"
     fi
     echo -en "\033[0;33m"
-    printf "%${repeat}s" |sed 's/ /*/g'
+    printf "%${repeat}s" | sed 's/ /*/g'
     echo -en " Waiting $((sleepTime * repeat)) seconds for all jobs to complete "
-    printf "%${repeat}s" |sed 's/ /*/g'
+    printf "%${repeat}s" | sed 's/ /*/g'
     echo -en "\033[0m"
     sleep $sleepTime
   else
-    if (( repeat > 0 )); then
+    if ((repeat > 0)); then
       echo ""
     fi
     break
@@ -192,7 +194,7 @@ done
 
 command="python src/parse-results/sbatch-parse.py $parseResults$additionalParseParams"
 echo $command
-$command >> $resultFileName
+$command >>$resultFileName
 
 echo ""
 echo ""

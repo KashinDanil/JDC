@@ -10,17 +10,20 @@ def main():
         return
 
     resultFileName = sys.argv[1]
+    # check if the path exists
     if (not os.path.isfile(resultFileName)):
         print("File " + resultFileName + " is not exists.")
         return
     with open(resultFileName) as f:
         line = f.read()
+        # find results by matching regular expression
         res = re.findall("\d+\s+(\d+(\.\d+)?)", line, re.MULTILINE)
         if (res):
             print("Expected max network bandwidth: "
                   + str(float(res[len(res) - 1][0] if type(res[len(res) - 1]) is tuple else res[len(res) - 1]) * 1000000)
                   + " B/s in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
+            # delete output file if not needed
             if ('--dndoof' not in sys.argv):
                 os.remove(resultFileName)
             return

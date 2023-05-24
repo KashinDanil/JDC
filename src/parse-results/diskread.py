@@ -10,18 +10,19 @@ def main():
         return
 
     resultFileName = sys.argv[1]
+    # check if the path exists
     if (not os.path.isfile(resultFileName)):
         print("File " + resultFileName + " is not exists.")
         return
     with open(resultFileName) as f:
         line = f.read()
+        # find results by matching regular expression
         resAvg = re.findall("Average disk reading speed: (\d+\.\d{2}) b/s", line, re.MULTILINE)
         if (resAvg):
             print("Expected average disk reading: " + resAvg[len(resAvg) - 1]
                   + " B/s in job with ID "
                   + resultFileName.replace("slurm-", "").replace(".out", ""))
-            # print("Expected max disk reading: " + str(max(res)) + " B/s in job with ID "
-            #       + resultFileName.replace("slurm-", "").replace(".out", ""))
+            # delete output file if not needed
             if ('--dndoof' not in sys.argv):
                 os.remove(resultFileName)
             return

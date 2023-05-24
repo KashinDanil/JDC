@@ -19,11 +19,6 @@ void makeDataExchange(int duration, int rank) {
     unsigned long t;
     start = clock();
 
-//    double cpu_time_start, cpu_time_finish;
-//    if (rank == first_thread) {
-//        cpu_time_start = MPI_Wtime();
-//    }
-
     int i, timeSpent,
     iterNum = 0,
     cont = 1,
@@ -32,22 +27,21 @@ void makeDataExchange(int duration, int rank) {
     do {
         for (i = 0; i < iterLimit; i++) {
             if ((i + rank) % 2 == 0) {
-//                printf("proc: %d, iter: %d, send: %c\n", rank, i, sendData);
+//              add 1 to sent message counter
                 packetsNumber++;
+//              synchronized send so we wait until another process receives the message
                 MPI_Ssend(&sendData, 1, MPI_CHAR, (rank + 1) % 2, 100, MPI_COMM_WORLD);
             } else {
                 MPI_Recv(&recvData, 1, MPI_CHAR, (rank + 1) % 2, 100, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-//                printf("proc: %d, iter: %d, recv: %c\n", rank, i, recvData);
             }
         }
         if (rank == first_thread) {
+//          every iterLimit number of exchanges the first process checks if the time has elapsed
             stop = clock();
-//            printf("1Time spent %ld s\n", (stop - start));
             timeSpent = (int)((stop - start) / CLOCKS_PER_SEC);
-//            cpu_time_finish = MPI_Wtime();
-//            timeSpent = (int)(cpu_time_finish - cpu_time_start);
             cont = timeSpent < duration;
             packetsNumber++;
+//          send information to the other process whether they should continue the exchange or stop
             MPI_Ssend(&cont, 1, MPI_INT, (rank + 1) % 2, 100, MPI_COMM_WORLD);
         } else {
             MPI_Recv(&cont, 1, MPI_INT, (rank + 1) % 2, 100, MPI_COMM_WORLD, MPI_STATUS_IGNORE);

@@ -5,13 +5,15 @@ CPU benchmark that loads cpu using cpuoccupy anomaly in HPAS
 '
 cpuloadavg() {
   cpuloadavgCall() {
-    for ((i = 0 ; i < $loadAvg ; i++)); do
-#      echo $i" $@ &"
+    for ((i = 0; i < $loadAvg; i++)); do
+      #run specific number of processes
       $@ &
+      #remember the IDs of all processes
       pids[$i]=$!
     done
-    for ((i = 0 ; i < NUMBER_OF_CORES_PER_NODE ; i++)); do
-        wait ${pids[$i]}
+    #wait till every process is finished
+    for ((i = 0; i < NUMBER_OF_CORES_PER_NODE; i++)); do
+      wait ${pids[$i]}
     done
   }
 
@@ -26,11 +28,11 @@ cpuloadavg() {
     options=$options" -d 600"
   fi
   loadAvg=10
-  while [ -n "$1" ]
-  do
+  while [ -n "$1" ]; do
     if [[ "$1" == "-l" ]] || [[ "$1" == "--loadavg" ]]; then
       #number of processes to run
       loadAvg=$2
+      #remove this option from running in cpuoccupy from hpas as it has no such parameter
       options=${options//$1 $2/}
     fi
     shift

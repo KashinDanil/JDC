@@ -5,13 +5,15 @@ CPU benchmark that loads cpu using cpuoccupy anomaly in HPAS
 '
 cpuload() {
   cpuloadCall() {
-    for ((i = 0 ; i < NUMBER_OF_CORES_PER_NODE ; i++)); do
-#      echo $i" $@ &"
+    for ((i = 0; i < NUMBER_OF_CORES_PER_NODE; i++)); do
+      #run specific number of processes
       $@ &
+      #remember the IDs of all processes
       pids[$i]=$!
     done
-    for ((i = 0 ; i < NUMBER_OF_CORES_PER_NODE ; i++)); do
-        wait ${pids[$i]}
+    #wait till every process is finished
+    for ((i = 0; i < NUMBER_OF_CORES_PER_NODE; i++)); do
+      wait ${pids[$i]}
     done
   }
 
@@ -26,7 +28,7 @@ cpuload() {
     options=$options" -d 600"
   fi
   if [[ ! "$options" == *"-v"* ]]; then
-    #show verbose data
+    #always show verbose data for free memory knowledge
     options=$options" -v"
   fi
   command="$SCRIPT_DIR/src/HPAS/bin/hpas cpuoccupy $options"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #important constants#
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 #import utils
 . "$SCRIPT_DIR/config.sh"
@@ -21,20 +21,19 @@ benchmarksCounter=0
 #common parameters used in all benchmarks (-d for duration)
 commonParamKeys=("-d", "--duration")
 commonParams=()
-while [ -n "$1" ]
-do
+while [ -n "$1" ]; do
   param=$1
 
-  if [[ $param = "-h" ]] || [[ $param = "--help" ]]; then
+  if [[ $param == "-h" ]] || [[ $param == "--help" ]]; then
     help
     exit 0
   fi
 
   #check if common parameters are used
   if [[ " ${commonParamKeys[*]} " =~ "$1" ]]; then
-      commonParams+=("$1 $2")
-      shift 2
-      continue
+    commonParams+=("$1 $2")
+    shift 2
+    continue
   fi
 
   benchmark=${param%%=*}
@@ -52,7 +51,7 @@ do
     parameters[$benchmarksCounter]=''
   fi
 
-  ((benchmarksCounter=benchmarksCounter+1))
+  ((benchmarksCounter = benchmarksCounter + 1))
 
   shift
 done
@@ -60,12 +59,12 @@ done
 #if there is no benchmarks chosen, use them all
 if [ "${#benchmarks[@]}" -eq "0" ]; then
   echo "Use all benchmarks: $availableBenchmarks"
-  IFS=' ' read -r -a benchmarks <<< $availableBenchmarks
+  IFS=' ' read -r -a benchmarks <<<$availableBenchmarks
   benchmarksCounter=${#benchmarks[@]}
 fi
 
 #run chosen benchmarks using all parameters
-for (( bn=0; bn < $benchmarksCounter; bn++ )) do
+for ((bn = 0; bn < $benchmarksCounter; bn++)); do
   echo -e "Run benchmark: \033[32m"${benchmarks[$bn]}"\033[0m" ${parameters[$bn]##*( )} ${commonParams[@]}
   ${benchmarks[$bn]} ${parameters[$bn]} ${commonParams[@]}
 done

@@ -11,6 +11,7 @@ mpiib() {
     #use 100% of cpu on one node as default cpu load
     options=$options" -m 16384:16384"
   fi
+  #add some default options
   if [[ ! "$options" == *"-i"* ]]; then
     if [[ "$options" == *"tiny"* ]]; then
       #500000 iterations, which is around 2 minutes
@@ -31,6 +32,5 @@ mpiib() {
     options=$options" -x 0"
   fi
   command="$SCRIPT_DIR/src/osu-micro-benchmarks/c/mpi/pt2pt/osu_bw $options"
-#  echo $command
   $command
 }
