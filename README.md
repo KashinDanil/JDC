@@ -1,8 +1,6 @@
-By default, configurations are set for supercomputer Lomonosov-2
-
-If you want to change it replace the values of the corresponding variables in [`config.sh`](https://github.com/KashinDanil/JDC/blob/master/config.sh)
-
-Prerequisites (There are presented versions of modules on which JDC works properly):
+Prerequisites
+------------
+There are presented versions of modules on which JDC works properly:
 * gcc/9.1 (To compile most of the benchmarks)
 * openmpi/4.1.1-icc (To compile the mpiib and mpipacks benchmarks)
 * cuda/10.1 (To compile the gpuload benchmark)
