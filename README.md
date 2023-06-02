@@ -59,7 +59,7 @@ Examples
 
 
 
-Creating new benchmark
+Creating a new benchmark
 ------------
 In order to create a new test, you must use the templates from
 [the appropriate directory](https://github.com/KashinDanil/JDC/blob/master/templates/).
